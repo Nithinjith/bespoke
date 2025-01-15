@@ -1,9 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:bespoke/core/utils/theme_utils.dart';
 import 'package:bespoke/routing/route_config.gr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/utils/theme_utils.dart';
 
 final emailProvider = StateProvider<String?>(
   (ref) => null,
@@ -71,22 +74,28 @@ class LoginPage extends ConsumerWidget {
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   _buildInputField(
-                    context,
                     label: 'Email',
-                    backgroundColor: Colors.grey[300],
+                    context: context,
+                    iconAssetPath: '',
+                    onChanged: (email) {
+                      ref.read(emailProvider.notifier).state = email;
+                    },
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   _buildInputField(
-                    context,
+                    context: context,
+                    iconAssetPath: '',
                     label: 'Password',
-                    backgroundColor: Colors.grey[300],
+                    onChanged: (password) {
+                      ref.read(passwordProvider.notifier).state = password;
+                    },
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   _buildButton(
                     context,
                     label: 'Get Started',
-                    color: theme.colorScheme.primary,
-                    textColor: theme.colorScheme.onPrimary,
+                    color: primaryColor,
+                    textColor: cardGreyColor,
                     ref: ref
                   ),
                 ],
@@ -98,30 +107,87 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildInputField(
-    BuildContext context, {
+
+  Widget _buildInputField({
+    required BuildContext context,
     required String label,
-    required Color? backgroundColor,
+    required String iconAssetPath, // Change to asset path
+    required Function(String) onChanged, // Callback function
+    double width = 239.60,
+    double height = 38.39,
+    double borderRadius = 10.0,
   }) {
     final theme = Theme.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          label,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w300,
+
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Stack(
+        children: [
+          // Background container
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface, // Using theme surface color
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+            ),
           ),
-        ),
+          // Label
+          Positioned(
+            left: 36,
+            top: (height - 18.61) / 2, // Centered vertically
+            child: SizedBox(
+              child: Text(
+                label,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: theme.colorScheme.onSurface, // Text color from theme
+                ),
+              ),
+            ),
+          ),
+          // Icon (loaded from asset)
+          Positioned(
+            left: 9,
+            top: (height - 16) / 2, // Centered vertically
+            child: Container(
+              width: 16,
+              height: 16,
+              child: Image.asset(
+                iconAssetPath,
+                fit: BoxFit.contain, // Ensure the image fits properly
+              ),
+            ),
+          ),
+          // TextField
+          Positioned(
+            left: 36,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: TextField(
+              onChanged: onChanged, // Callback for text changes
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: (height - 18.61) / 2),
+              ),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+                color: theme.colorScheme.onSurface, // Text color from theme
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-
   Widget _buildButton(
     BuildContext context, {
     required String label,
@@ -146,15 +212,13 @@ class LoginPage extends ConsumerWidget {
         padding: EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: color,
+
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
           child: Text(
             label,
-            style: theme.textTheme.displayLarge?.copyWith(
-              color: textColor,
-              fontWeight: FontWeight.w600,
-            ),
+            style: theme.textTheme.labelSmall,
           ),
         ),
       ),

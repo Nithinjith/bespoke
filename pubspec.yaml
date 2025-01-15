@@ -20,6 +20,7 @@ dependencies:
   firebase_auth: ^5.3.4
   cloud_firestore: ^5.6.0
   flex_color_scheme: ^8.0.2
+  cloud_firestore_odm: ^1.0.0-dev.88
 #  google_fonts: ^6.2.1
 
 dev_dependencies:
@@ -38,4 +39,25 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-
+    - assets/fonts/
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Montserrat-ExtraBold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat-ExtraBoldItalic.ttf
+          weight: 700
+          style: italic
