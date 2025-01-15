@@ -1,18 +1,26 @@
+import 'package:bespoke/firebase_options.dart';
 import 'package:bespoke/routing/route_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  runApp( BeSpokeApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(BeSpokeApp());
 }
+
 class BeSpokeApp extends StatelessWidget {
-   BeSpokeApp({super.key});
+  BeSpokeApp({super.key});
+
+
   final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-    routerConfig: _appRouter.config(),
+      routerConfig: _appRouter.config(),
     );
   }
 }
-

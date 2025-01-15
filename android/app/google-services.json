@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "427876812819",
-    "project_id": "bespoke-ad739",
-    "storage_bucket": "bespoke-ad739.firebasestorage.app"
+    "project_number": "1004288477701",
+    "project_id": "bespoke-bd7fa",
+    "storage_bucket": "bespoke-bd7fa.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:427876812819:android:974e121ef2485e27c297e6",
+        "mobilesdk_app_id": "1:1004288477701:android:518e0a7d5d262dabefaa6c",
         "android_client_info": {
-          "package_name": "com.bespoke.app"
+          "package_name": "com.bespoke.app.bespoke"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1004288477701-juj8a9r569mftfngdiqi6rklmkjnlr16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAurP7mZZfS7lfOw6BeF2Dm9ZqsN4jEcD8"
+          "current_key": "AIzaSyCZwDbHLJ-MBnYPCBmJHIcbAVGBPvRoNaM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004288477701-juj8a9r569mftfngdiqi6rklmkjnlr16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

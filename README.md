@@ -14,3 +14,21 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Code Structure- Architecture
+lib/
+├── core/
+│   ├── error/
+│   ├── utils/
+├── features/
+│   ├── feature_name/
+│   │   ├── data/
+│   │   │   ├── models/
+│   │   │   ├── repositories/
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   ├── usecases/
+│   │   ├── presentation/
+│   │   │   ├── providers/
+│   │   │   ├── pages/
+├── main.dart
