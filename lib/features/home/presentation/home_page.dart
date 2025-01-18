@@ -35,7 +35,9 @@ class HomePage extends StatelessWidget {
             }
             ProjectQuerySnapshot querySnapshot = snapshot.requireData;
             return ListView.builder(
+              itemCount: querySnapshot.docs.length,
               itemBuilder: (context, index) {
+
                 final project = querySnapshot.docs[index].data;
                 return ListTile(
                   title: Text(project.name),
