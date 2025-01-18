@@ -174,6 +174,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0-dev.88"
+  cloud_firestore_odm_generator:
+    dependency: "direct dev"
+    description:
+      name: cloud_firestore_odm_generator
+      sha256: d8b695ac0a3aeb88c1f42b2be8f53d79bd92126a761adc672430c9e2361d71e2
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-dev.89"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -581,6 +589,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   riverpod:
     dependency: transitive
     description:

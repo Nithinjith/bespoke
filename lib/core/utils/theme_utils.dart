@@ -33,6 +33,7 @@ TextTheme appTextTheme = TextTheme(
 
 
 // Define dark theme with font and additional theming
+
 var darkTheme = FlexThemeData.dark(
   scaffoldBackground: const Color(0xFF121212),
   colors: const FlexSchemeColor(

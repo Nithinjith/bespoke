@@ -17,6 +17,28 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['createdAt'] as String),
     );
 
+const _$$UserModelImplFieldMap = <String, String>{
+  'id': 'id',
+  'name': 'name',
+  'email': 'email',
+  'isActive': 'isActive',
+  'createdAt': 'createdAt',
+};
+
+// ignore: unused_element
+abstract class _$$UserModelImplPerFieldToJson {
+  // ignore: unused_element
+  static Object? id(int instance) => instance;
+  // ignore: unused_element
+  static Object? name(String instance) => instance;
+  // ignore: unused_element
+  static Object? email(String instance) => instance;
+  // ignore: unused_element
+  static Object? isActive(bool instance) => instance;
+  // ignore: unused_element
+  static Object? createdAt(DateTime? instance) => instance?.toIso8601String();
+}
+
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
