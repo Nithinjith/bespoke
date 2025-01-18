@@ -14,6 +14,7 @@ const firestoreSerializable = JsonSerializable(
 class Project {
   Project({
     required this.id,
+    required this.objectId,
     required this.name,
     required this.description,
     required this.createdAt,
@@ -25,7 +26,7 @@ class Project {
 
   @Id()
   final String id;
-
+  final String objectId;
   final String creatorId;
   final String name;
   final String description;

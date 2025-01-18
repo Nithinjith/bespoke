@@ -135,6 +135,7 @@ abstract class ProjectDocumentReference
   Future<void> set(
     Project model, {
     SetOptions? options,
+    FieldValue objectIdFieldValue,
     FieldValue creatorIdFieldValue,
     FieldValue nameFieldValue,
     FieldValue descriptionFieldValue,
@@ -155,6 +156,7 @@ abstract class ProjectDocumentReference
     Transaction transaction,
     Project model, {
     SetOptions? options,
+    FieldValue objectIdFieldValue,
     FieldValue creatorIdFieldValue,
     FieldValue nameFieldValue,
     FieldValue descriptionFieldValue,
@@ -175,6 +177,7 @@ abstract class ProjectDocumentReference
     WriteBatch batch,
     Project model, {
     SetOptions? options,
+    FieldValue objectIdFieldValue,
     FieldValue creatorIdFieldValue,
     FieldValue nameFieldValue,
     FieldValue descriptionFieldValue,
@@ -189,6 +192,8 @@ abstract class ProjectDocumentReference
   ///
   /// If no document exists yet, the update will fail.
   Future<void> update({
+    String objectId,
+    FieldValue objectIdFieldValue,
     String creatorId,
     FieldValue creatorIdFieldValue,
     String name,
@@ -210,6 +215,8 @@ abstract class ProjectDocumentReference
   /// The update will fail if applied to a document that does not exist.
   void transactionUpdate(
     Transaction transaction, {
+    String objectId,
+    FieldValue objectIdFieldValue,
     String creatorId,
     FieldValue creatorIdFieldValue,
     String name,
@@ -231,6 +238,8 @@ abstract class ProjectDocumentReference
   /// The update will fail if applied to a document that does not exist.
   void batchUpdate(
     WriteBatch batch, {
+    String objectId,
+    FieldValue objectIdFieldValue,
     String creatorId,
     FieldValue creatorIdFieldValue,
     String name,
@@ -279,6 +288,7 @@ class _$ProjectDocumentReference
   Future<void> set(
     Project model, {
     SetOptions? options,
+    FieldValue? objectIdFieldValue,
     FieldValue? creatorIdFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? descriptionFieldValue,
@@ -289,6 +299,8 @@ class _$ProjectDocumentReference
   }) async {
     final json = {
       ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorIdFieldValue != null)
         _$ProjectFieldMap['creatorId']!: creatorIdFieldValue,
       if (nameFieldValue != null) _$ProjectFieldMap['name']!: nameFieldValue,
@@ -316,6 +328,7 @@ class _$ProjectDocumentReference
     Transaction transaction,
     Project model, {
     SetOptions? options,
+    FieldValue? objectIdFieldValue,
     FieldValue? creatorIdFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? descriptionFieldValue,
@@ -326,6 +339,8 @@ class _$ProjectDocumentReference
   }) {
     final json = {
       ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorIdFieldValue != null)
         _$ProjectFieldMap['creatorId']!: creatorIdFieldValue,
       if (nameFieldValue != null) _$ProjectFieldMap['name']!: nameFieldValue,
@@ -349,6 +364,7 @@ class _$ProjectDocumentReference
     WriteBatch batch,
     Project model, {
     SetOptions? options,
+    FieldValue? objectIdFieldValue,
     FieldValue? creatorIdFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? descriptionFieldValue,
@@ -359,6 +375,8 @@ class _$ProjectDocumentReference
   }) {
     final json = {
       ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorIdFieldValue != null)
         _$ProjectFieldMap['creatorId']!: creatorIdFieldValue,
       if (nameFieldValue != null) _$ProjectFieldMap['name']!: nameFieldValue,
@@ -379,6 +397,8 @@ class _$ProjectDocumentReference
   }
 
   Future<void> update({
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
     Object? creatorId = _sentinel,
     FieldValue? creatorIdFieldValue,
     Object? name = _sentinel,
@@ -394,6 +414,10 @@ class _$ProjectDocumentReference
     Object? expectedDeliveryDate = _sentinel,
     FieldValue? expectedDeliveryDateFieldValue,
   }) async {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
     assert(
       creatorId == _sentinel || creatorIdFieldValue == null,
       "Cannot specify both creatorId and creatorIdFieldValue",
@@ -424,6 +448,11 @@ class _$ProjectDocumentReference
       "Cannot specify both expectedDeliveryDate and expectedDeliveryDateFieldValue",
     );
     final json = {
+      if (objectId != _sentinel)
+        _$ProjectFieldMap['objectId']!:
+            _$ProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorId != _sentinel)
         _$ProjectFieldMap['creatorId']!:
             _$ProjectPerFieldToJson.creatorId(creatorId as String),
@@ -466,6 +495,8 @@ class _$ProjectDocumentReference
 
   void transactionUpdate(
     Transaction transaction, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
     Object? creatorId = _sentinel,
     FieldValue? creatorIdFieldValue,
     Object? name = _sentinel,
@@ -481,6 +512,10 @@ class _$ProjectDocumentReference
     Object? expectedDeliveryDate = _sentinel,
     FieldValue? expectedDeliveryDateFieldValue,
   }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
     assert(
       creatorId == _sentinel || creatorIdFieldValue == null,
       "Cannot specify both creatorId and creatorIdFieldValue",
@@ -511,6 +546,11 @@ class _$ProjectDocumentReference
       "Cannot specify both expectedDeliveryDate and expectedDeliveryDateFieldValue",
     );
     final json = {
+      if (objectId != _sentinel)
+        _$ProjectFieldMap['objectId']!:
+            _$ProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorId != _sentinel)
         _$ProjectFieldMap['creatorId']!:
             _$ProjectPerFieldToJson.creatorId(creatorId as String),
@@ -553,6 +593,8 @@ class _$ProjectDocumentReference
 
   void batchUpdate(
     WriteBatch batch, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
     Object? creatorId = _sentinel,
     FieldValue? creatorIdFieldValue,
     Object? name = _sentinel,
@@ -568,6 +610,10 @@ class _$ProjectDocumentReference
     Object? expectedDeliveryDate = _sentinel,
     FieldValue? expectedDeliveryDateFieldValue,
   }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
     assert(
       creatorId == _sentinel || creatorIdFieldValue == null,
       "Cannot specify both creatorId and creatorIdFieldValue",
@@ -598,6 +644,11 @@ class _$ProjectDocumentReference
       "Cannot specify both expectedDeliveryDate and expectedDeliveryDateFieldValue",
     );
     final json = {
+      if (objectId != _sentinel)
+        _$ProjectFieldMap['objectId']!:
+            _$ProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$ProjectFieldMap['objectId']!: objectIdFieldValue,
       if (creatorId != _sentinel)
         _$ProjectFieldMap['creatorId']!:
             _$ProjectPerFieldToJson.creatorId(creatorId as String),
@@ -691,6 +742,18 @@ abstract class ProjectQuery
   });
 
   ProjectQuery whereDocumentId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  ProjectQuery whereObjectId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -820,6 +883,18 @@ abstract class ProjectQuery
   });
 
   ProjectQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    ProjectDocumentSnapshot? startAtDocument,
+    ProjectDocumentSnapshot? endAtDocument,
+    ProjectDocumentSnapshot? endBeforeDocument,
+    ProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  ProjectQuery orderByObjectId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -1018,6 +1093,50 @@ class _$ProjectQuery extends QueryReference<Project, ProjectQuerySnapshot>
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
         whereIn: whereIn,
         whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  ProjectQuery whereObjectId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$ProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ProjectFieldMap['objectId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$ProjectPerFieldToJson.objectId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$ProjectPerFieldToJson.objectId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$ProjectPerFieldToJson.objectId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$ProjectPerFieldToJson.objectId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$ProjectPerFieldToJson.objectId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$ProjectPerFieldToJson.objectId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$ProjectPerFieldToJson.objectId(e)),
+        whereNotIn: whereNotIn?.map((e) => _$ProjectPerFieldToJson.objectId(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -1440,6 +1559,79 @@ class _$ProjectQuery extends QueryReference<Project, ProjectQuerySnapshot>
   }) {
     final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
         descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$ProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  ProjectQuery orderByObjectId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ProjectDocumentSnapshot? startAtDocument,
+    ProjectDocumentSnapshot? endAtDocument,
+    ProjectDocumentSnapshot? endBeforeDocument,
+    ProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$ProjectFieldMap['objectId']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -2111,6 +2303,7 @@ class ProjectQueryDocumentSnapshot
 
 Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
       id: json['id'] as String,
+      objectId: json['objectId'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
       createdAt: const FirestoreDateTimeConverter()
@@ -2126,6 +2319,7 @@ Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
 
 const _$ProjectFieldMap = <String, String>{
   'id': 'id',
+  'objectId': 'objectId',
   'creatorId': 'creatorId',
   'name': 'name',
   'description': 'description',
@@ -2139,6 +2333,8 @@ const _$ProjectFieldMap = <String, String>{
 abstract class _$ProjectPerFieldToJson {
   // ignore: unused_element
   static Object? id(String instance) => instance;
+  // ignore: unused_element
+  static Object? objectId(String instance) => instance;
   // ignore: unused_element
   static Object? creatorId(String instance) => instance;
   // ignore: unused_element
@@ -2161,6 +2357,7 @@ abstract class _$ProjectPerFieldToJson {
 
 Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{
       'id': instance.id,
+      'objectId': instance.objectId,
       'creatorId': instance.creatorId,
       'name': instance.name,
       'description': instance.description,

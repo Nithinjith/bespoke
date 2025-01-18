@@ -44,7 +44,7 @@ class BeSpokeHomeAppBar extends StatelessWidget implements PreferredSizeWidget{
               height: 50,
               decoration: ShapeDecoration(
                 image: DecorationImage(
-                  image: NetworkImage("https://via.placeholder.com/50x50"),
+                  image: AssetImage('assets/images/bespoke_logo.png'),
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -90,5 +90,5 @@ class BeSpokeHomeAppBar extends StatelessWidget implements PreferredSizeWidget{
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(78);
 }
