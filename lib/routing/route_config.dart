@@ -16,6 +16,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: LoginRoute.page,path: '/login',),
     AutoRoute(page: RegisterRoute.page,path: '/register',),
     AutoRoute(page: HomeRoute.page,path: '/',guards: [authGuard]),
+    AutoRoute(page: ProjectFormRoute.page,path: '/create_update_projects'),
   ];
 }
 class AuthGuard extends AutoRouteGuard {
