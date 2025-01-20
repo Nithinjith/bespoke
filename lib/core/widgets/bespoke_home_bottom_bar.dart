@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+enum BottomBarSection {
+  home,
+  employees,
+  finance,
+}
+
 class BespokeBottomBar extends StatelessWidget {
+  const BespokeBottomBar({super.key, required this.sectionCallback});
+  final  Function(BottomBarSection) sectionCallback;
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(

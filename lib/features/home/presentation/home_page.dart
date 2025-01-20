@@ -40,17 +40,33 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
               itemCount: querySnapshot.docs.length,
               itemBuilder: (context, index) {
-
                 final project = querySnapshot.docs[index].data;
                 return ListTile(
                   title: Text(project.name),
                   subtitle: Text(project.description),
+                  onTap: () {
+                    context.pushRoute(ProjectFormRoute(project: project));
+                  },
                 );
               },
             );
           },
         ),
-        bottomNavigationBar: BespokeBottomBar(),
+        bottomNavigationBar: BespokeBottomBar(sectionCallback: (callBack) {
+          switch (callBack) {
+            case BottomBarSection.home:
+               context.router.push(HomeRoute());
+               break;
+            case BottomBarSection.employees:
+              context.router.push(EmployeeListRoute());
+              break;
+            case BottomBarSection.finance:
+              context.router.push(HomeRoute());
+              break;
+            default:
+              throw Exception('Invalid section name: $callBack');
+          }
+        },),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             context.router.push(ProjectFormRoute());
