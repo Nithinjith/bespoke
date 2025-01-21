@@ -9,7 +9,9 @@ enum BottomBarSection {
 
 class BespokeBottomBar extends StatelessWidget {
   const BespokeBottomBar({super.key, required this.sectionCallback});
-  final  Function(BottomBarSection) sectionCallback;
+
+  final Function(BottomBarSection) sectionCallback;
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -37,6 +39,24 @@ class BespokeBottomBar extends StatelessWidget {
           iconPath: 'assets/icons/ic_finance.svg',
         ),
       ],
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            sectionCallback(BottomBarSection.home);
+            break;
+          case 1:
+            sectionCallback(BottomBarSection.employees);
+            break;
+          case 2:
+            sectionCallback(BottomBarSection.finance);
+            break;
+          case 3:
+            sectionCallback(BottomBarSection.home);
+            break;
+          default:
+            sectionCallback(BottomBarSection.home);
+        }
+      },
     );
   }
 

@@ -136,11 +136,11 @@ abstract class UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
-    FieldValue creatorIdFieldValue,
+    FieldValue createdAtFieldValue,
     FieldValue nameFieldValue,
     FieldValue emailFieldValue,
-    FieldValue createdAtFieldValue,
     FieldValue updatedAtFieldValue,
+    FieldValue phoneFieldValue,
   });
 
   /// Writes to the document using the transaction API.
@@ -155,11 +155,11 @@ abstract class UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
-    FieldValue creatorIdFieldValue,
+    FieldValue createdAtFieldValue,
     FieldValue nameFieldValue,
     FieldValue emailFieldValue,
-    FieldValue createdAtFieldValue,
     FieldValue updatedAtFieldValue,
+    FieldValue phoneFieldValue,
   });
 
   /// Writes to the document using the batch API.
@@ -174,11 +174,11 @@ abstract class UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
-    FieldValue creatorIdFieldValue,
+    FieldValue createdAtFieldValue,
     FieldValue nameFieldValue,
     FieldValue emailFieldValue,
-    FieldValue createdAtFieldValue,
     FieldValue updatedAtFieldValue,
+    FieldValue phoneFieldValue,
   });
 
   /// Updates data on the document. Data will be merged with any existing
@@ -188,16 +188,16 @@ abstract class UserDocumentReference
   Future<void> update({
     String objectId,
     FieldValue objectIdFieldValue,
-    String creatorId,
-    FieldValue creatorIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
     String name,
     FieldValue nameFieldValue,
     String email,
     FieldValue emailFieldValue,
-    DateTime createdAt,
-    FieldValue createdAtFieldValue,
     DateTime updatedAt,
     FieldValue updatedAtFieldValue,
+    int phone,
+    FieldValue phoneFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -207,16 +207,16 @@ abstract class UserDocumentReference
     Transaction transaction, {
     String objectId,
     FieldValue objectIdFieldValue,
-    String creatorId,
-    FieldValue creatorIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
     String name,
     FieldValue nameFieldValue,
     String email,
     FieldValue emailFieldValue,
-    DateTime createdAt,
-    FieldValue createdAtFieldValue,
     DateTime updatedAt,
     FieldValue updatedAtFieldValue,
+    int phone,
+    FieldValue phoneFieldValue,
   });
 
   /// Updates fields in the current document using the batch API.
@@ -226,16 +226,16 @@ abstract class UserDocumentReference
     WriteBatch batch, {
     String objectId,
     FieldValue objectIdFieldValue,
-    String creatorId,
-    FieldValue creatorIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
     String name,
     FieldValue nameFieldValue,
     String email,
     FieldValue emailFieldValue,
-    DateTime createdAt,
-    FieldValue createdAtFieldValue,
     DateTime updatedAt,
     FieldValue updatedAtFieldValue,
+    int phone,
+    FieldValue phoneFieldValue,
   });
 }
 
@@ -271,24 +271,23 @@ class _$UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
-    FieldValue? creatorIdFieldValue,
+    FieldValue? createdAtFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? emailFieldValue,
-    FieldValue? createdAtFieldValue,
     FieldValue? updatedAtFieldValue,
+    FieldValue? phoneFieldValue,
   }) async {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
-      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
-      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (createdAtFieldValue != null)
         _$UserFieldMap['createdAt']!: createdAtFieldValue,
+      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
+      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     final castedReference = reference.withConverter<Map<String, dynamic>>(
@@ -303,24 +302,23 @@ class _$UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
-    FieldValue? creatorIdFieldValue,
+    FieldValue? createdAtFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? emailFieldValue,
-    FieldValue? createdAtFieldValue,
     FieldValue? updatedAtFieldValue,
+    FieldValue? phoneFieldValue,
   }) {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
-      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
-      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (createdAtFieldValue != null)
         _$UserFieldMap['createdAt']!: createdAtFieldValue,
+      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
+      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     transaction.set(reference, json, options);
@@ -331,24 +329,23 @@ class _$UserDocumentReference
     User model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
-    FieldValue? creatorIdFieldValue,
+    FieldValue? createdAtFieldValue,
     FieldValue? nameFieldValue,
     FieldValue? emailFieldValue,
-    FieldValue? createdAtFieldValue,
     FieldValue? updatedAtFieldValue,
+    FieldValue? phoneFieldValue,
   }) {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
-      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
-      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (createdAtFieldValue != null)
         _$UserFieldMap['createdAt']!: createdAtFieldValue,
+      if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
+      if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     batch.set(reference, json, options);
@@ -357,24 +354,24 @@ class _$UserDocumentReference
   Future<void> update({
     Object? objectId = _sentinel,
     FieldValue? objectIdFieldValue,
-    Object? creatorId = _sentinel,
-    FieldValue? creatorIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? email = _sentinel,
     FieldValue? emailFieldValue,
-    Object? createdAt = _sentinel,
-    FieldValue? createdAtFieldValue,
     Object? updatedAt = _sentinel,
     FieldValue? updatedAtFieldValue,
+    Object? phone = _sentinel,
+    FieldValue? phoneFieldValue,
   }) async {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
       "Cannot specify both objectId and objectIdFieldValue",
     );
     assert(
-      creatorId == _sentinel || creatorIdFieldValue == null,
-      "Cannot specify both creatorId and creatorIdFieldValue",
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
     );
     assert(
       name == _sentinel || nameFieldValue == null,
@@ -385,12 +382,12 @@ class _$UserDocumentReference
       "Cannot specify both email and emailFieldValue",
     );
     assert(
-      createdAt == _sentinel || createdAtFieldValue == null,
-      "Cannot specify both createdAt and createdAtFieldValue",
-    );
-    assert(
       updatedAt == _sentinel || updatedAtFieldValue == null,
       "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      phone == _sentinel || phoneFieldValue == null,
+      "Cannot specify both phone and phoneFieldValue",
     );
     final json = {
       if (objectId != _sentinel)
@@ -398,27 +395,25 @@ class _$UserDocumentReference
             _$UserPerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorId != _sentinel)
-        _$UserFieldMap['creatorId']!:
-            _$UserPerFieldToJson.creatorId(creatorId as String),
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserFieldMap['createdAt']!:
+            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (name != _sentinel)
         _$UserFieldMap['name']!: _$UserPerFieldToJson.name(name as String),
       if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
       if (email != _sentinel)
         _$UserFieldMap['email']!: _$UserPerFieldToJson.email(email as String),
       if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
-      if (createdAt != _sentinel)
-        _$UserFieldMap['createdAt']!:
-            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
-      if (createdAtFieldValue != null)
-        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
         _$UserFieldMap['updatedAt']!:
             _$UserPerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phone != _sentinel)
+        _$UserFieldMap['phone']!: _$UserPerFieldToJson.phone(phone as int),
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     return reference.update(json);
@@ -428,24 +423,24 @@ class _$UserDocumentReference
     Transaction transaction, {
     Object? objectId = _sentinel,
     FieldValue? objectIdFieldValue,
-    Object? creatorId = _sentinel,
-    FieldValue? creatorIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? email = _sentinel,
     FieldValue? emailFieldValue,
-    Object? createdAt = _sentinel,
-    FieldValue? createdAtFieldValue,
     Object? updatedAt = _sentinel,
     FieldValue? updatedAtFieldValue,
+    Object? phone = _sentinel,
+    FieldValue? phoneFieldValue,
   }) {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
       "Cannot specify both objectId and objectIdFieldValue",
     );
     assert(
-      creatorId == _sentinel || creatorIdFieldValue == null,
-      "Cannot specify both creatorId and creatorIdFieldValue",
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
     );
     assert(
       name == _sentinel || nameFieldValue == null,
@@ -456,12 +451,12 @@ class _$UserDocumentReference
       "Cannot specify both email and emailFieldValue",
     );
     assert(
-      createdAt == _sentinel || createdAtFieldValue == null,
-      "Cannot specify both createdAt and createdAtFieldValue",
-    );
-    assert(
       updatedAt == _sentinel || updatedAtFieldValue == null,
       "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      phone == _sentinel || phoneFieldValue == null,
+      "Cannot specify both phone and phoneFieldValue",
     );
     final json = {
       if (objectId != _sentinel)
@@ -469,27 +464,25 @@ class _$UserDocumentReference
             _$UserPerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorId != _sentinel)
-        _$UserFieldMap['creatorId']!:
-            _$UserPerFieldToJson.creatorId(creatorId as String),
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserFieldMap['createdAt']!:
+            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (name != _sentinel)
         _$UserFieldMap['name']!: _$UserPerFieldToJson.name(name as String),
       if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
       if (email != _sentinel)
         _$UserFieldMap['email']!: _$UserPerFieldToJson.email(email as String),
       if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
-      if (createdAt != _sentinel)
-        _$UserFieldMap['createdAt']!:
-            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
-      if (createdAtFieldValue != null)
-        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
         _$UserFieldMap['updatedAt']!:
             _$UserPerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phone != _sentinel)
+        _$UserFieldMap['phone']!: _$UserPerFieldToJson.phone(phone as int),
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     transaction.update(reference, json);
@@ -499,24 +492,24 @@ class _$UserDocumentReference
     WriteBatch batch, {
     Object? objectId = _sentinel,
     FieldValue? objectIdFieldValue,
-    Object? creatorId = _sentinel,
-    FieldValue? creatorIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? email = _sentinel,
     FieldValue? emailFieldValue,
-    Object? createdAt = _sentinel,
-    FieldValue? createdAtFieldValue,
     Object? updatedAt = _sentinel,
     FieldValue? updatedAtFieldValue,
+    Object? phone = _sentinel,
+    FieldValue? phoneFieldValue,
   }) {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
       "Cannot specify both objectId and objectIdFieldValue",
     );
     assert(
-      creatorId == _sentinel || creatorIdFieldValue == null,
-      "Cannot specify both creatorId and creatorIdFieldValue",
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
     );
     assert(
       name == _sentinel || nameFieldValue == null,
@@ -527,12 +520,12 @@ class _$UserDocumentReference
       "Cannot specify both email and emailFieldValue",
     );
     assert(
-      createdAt == _sentinel || createdAtFieldValue == null,
-      "Cannot specify both createdAt and createdAtFieldValue",
-    );
-    assert(
       updatedAt == _sentinel || updatedAtFieldValue == null,
       "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      phone == _sentinel || phoneFieldValue == null,
+      "Cannot specify both phone and phoneFieldValue",
     );
     final json = {
       if (objectId != _sentinel)
@@ -540,27 +533,25 @@ class _$UserDocumentReference
             _$UserPerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
         _$UserFieldMap['objectId']!: objectIdFieldValue,
-      if (creatorId != _sentinel)
-        _$UserFieldMap['creatorId']!:
-            _$UserPerFieldToJson.creatorId(creatorId as String),
-      if (creatorIdFieldValue != null)
-        _$UserFieldMap['creatorId']!: creatorIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserFieldMap['createdAt']!:
+            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (name != _sentinel)
         _$UserFieldMap['name']!: _$UserPerFieldToJson.name(name as String),
       if (nameFieldValue != null) _$UserFieldMap['name']!: nameFieldValue,
       if (email != _sentinel)
         _$UserFieldMap['email']!: _$UserPerFieldToJson.email(email as String),
       if (emailFieldValue != null) _$UserFieldMap['email']!: emailFieldValue,
-      if (createdAt != _sentinel)
-        _$UserFieldMap['createdAt']!:
-            _$UserPerFieldToJson.createdAt(createdAt as DateTime),
-      if (createdAtFieldValue != null)
-        _$UserFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
         _$UserFieldMap['updatedAt']!:
             _$UserPerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
         _$UserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (phone != _sentinel)
+        _$UserFieldMap['phone']!: _$UserPerFieldToJson.phone(phone as int),
+      if (phoneFieldValue != null) _$UserFieldMap['phone']!: phoneFieldValue,
     };
 
     batch.update(reference, json);
@@ -641,15 +632,15 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     bool? isNull,
   });
 
-  UserQuery whereCreatorId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
+  UserQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
     bool? isNull,
   });
 
@@ -677,7 +668,7 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     bool? isNull,
   });
 
-  UserQuery whereCreatedAt({
+  UserQuery whereUpdatedAt({
     DateTime? isEqualTo,
     DateTime? isNotEqualTo,
     DateTime? isLessThan,
@@ -689,15 +680,15 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     bool? isNull,
   });
 
-  UserQuery whereUpdatedAt({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
-    List<DateTime>? whereIn,
-    List<DateTime>? whereNotIn,
+  UserQuery wherePhone({
+    int? isEqualTo,
+    int? isNotEqualTo,
+    int? isLessThan,
+    int? isLessThanOrEqualTo,
+    int? isGreaterThan,
+    int? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
     bool? isNull,
   });
 
@@ -758,12 +749,12 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     UserDocumentSnapshot? startAfterDocument,
   });
 
-  UserQuery orderByCreatorId({
+  UserQuery orderByCreatedAt({
     bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
     UserDocumentSnapshot? startAtDocument,
     UserDocumentSnapshot? endAtDocument,
     UserDocumentSnapshot? endBeforeDocument,
@@ -794,7 +785,7 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     UserDocumentSnapshot? startAfterDocument,
   });
 
-  UserQuery orderByCreatedAt({
+  UserQuery orderByUpdatedAt({
     bool descending = false,
     DateTime startAt,
     DateTime startAfter,
@@ -806,12 +797,12 @@ abstract class UserQuery implements QueryReference<User, UserQuerySnapshot> {
     UserDocumentSnapshot? startAfterDocument,
   });
 
-  UserQuery orderByUpdatedAt({
+  UserQuery orderByPhone({
     bool descending = false,
-    DateTime startAt,
-    DateTime startAfter,
-    DateTime endAt,
-    DateTime endBefore,
+    int startAt,
+    int startAfter,
+    int endAt,
+    int endBefore,
     UserDocumentSnapshot? startAtDocument,
     UserDocumentSnapshot? endAtDocument,
     UserDocumentSnapshot? endBeforeDocument,
@@ -974,41 +965,41 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
   }
 
   @override
-  UserQuery whereCreatorId({
+  UserQuery whereCreatedAt({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
     Object? isLessThanOrEqualTo,
     Object? isGreaterThan,
     Object? isGreaterThanOrEqualTo,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
     bool? isNull,
   }) {
     return _$UserQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$UserFieldMap['creatorId']!,
+        _$UserFieldMap['createdAt']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$UserPerFieldToJson.creatorId(isEqualTo as String)
+            ? _$UserPerFieldToJson.createdAt(isEqualTo as DateTime)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$UserPerFieldToJson.creatorId(isNotEqualTo as String)
+            ? _$UserPerFieldToJson.createdAt(isNotEqualTo as DateTime)
             : null,
         isLessThan: isLessThan != null
-            ? _$UserPerFieldToJson.creatorId(isLessThan as String)
+            ? _$UserPerFieldToJson.createdAt(isLessThan as DateTime)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$UserPerFieldToJson.creatorId(isLessThanOrEqualTo as String)
+            ? _$UserPerFieldToJson.createdAt(isLessThanOrEqualTo as DateTime)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$UserPerFieldToJson.creatorId(isGreaterThan as String)
+            ? _$UserPerFieldToJson.createdAt(isGreaterThan as DateTime)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$UserPerFieldToJson.creatorId(isGreaterThanOrEqualTo as String)
+            ? _$UserPerFieldToJson.createdAt(isGreaterThanOrEqualTo as DateTime)
             : null,
-        whereIn: whereIn?.map((e) => _$UserPerFieldToJson.creatorId(e)),
-        whereNotIn: whereNotIn?.map((e) => _$UserPerFieldToJson.creatorId(e)),
+        whereIn: whereIn?.map((e) => _$UserPerFieldToJson.createdAt(e)),
+        whereNotIn: whereNotIn?.map((e) => _$UserPerFieldToJson.createdAt(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -1106,50 +1097,6 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
   }
 
   @override
-  UserQuery whereCreatedAt({
-    Object? isEqualTo = _sentinel,
-    Object? isNotEqualTo = _sentinel,
-    Object? isLessThan,
-    Object? isLessThanOrEqualTo,
-    Object? isGreaterThan,
-    Object? isGreaterThanOrEqualTo,
-    List<DateTime>? whereIn,
-    List<DateTime>? whereNotIn,
-    bool? isNull,
-  }) {
-    return _$UserQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$UserFieldMap['createdAt']!,
-        isEqualTo: isEqualTo != _sentinel
-            ? _$UserPerFieldToJson.createdAt(isEqualTo as DateTime)
-            : null,
-        isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$UserPerFieldToJson.createdAt(isNotEqualTo as DateTime)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$UserPerFieldToJson.createdAt(isLessThan as DateTime)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$UserPerFieldToJson.createdAt(isLessThanOrEqualTo as DateTime)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$UserPerFieldToJson.createdAt(isGreaterThan as DateTime)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$UserPerFieldToJson.createdAt(isGreaterThanOrEqualTo as DateTime)
-            : null,
-        whereIn: whereIn?.map((e) => _$UserPerFieldToJson.createdAt(e)),
-        whereNotIn: whereNotIn?.map((e) => _$UserPerFieldToJson.createdAt(e)),
-        isNull: isNull ??
-            (isEqualTo == null ? false : null) ??
-            (isNotEqualTo == null ? true : null),
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
-  @override
   UserQuery whereUpdatedAt({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
@@ -1185,6 +1132,50 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
             : null,
         whereIn: whereIn?.map((e) => _$UserPerFieldToJson.updatedAt(e)),
         whereNotIn: whereNotIn?.map((e) => _$UserPerFieldToJson.updatedAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserQuery wherePhone({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserFieldMap['phone']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserPerFieldToJson.phone(isEqualTo as int)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserPerFieldToJson.phone(isNotEqualTo as int)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserPerFieldToJson.phone(isLessThan as int)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserPerFieldToJson.phone(isLessThanOrEqualTo as int)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserPerFieldToJson.phone(isGreaterThan as int)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserPerFieldToJson.phone(isGreaterThanOrEqualTo as int)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserPerFieldToJson.phone(e)),
+        whereNotIn: whereNotIn?.map((e) => _$UserPerFieldToJson.phone(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -1414,7 +1405,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
   }
 
   @override
-  UserQuery orderByCreatorId({
+  UserQuery orderByCreatedAt({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1425,7 +1416,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
     UserDocumentSnapshot? endBeforeDocument,
     UserDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['creatorId']!,
+    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['createdAt']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -1633,7 +1624,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
   }
 
   @override
-  UserQuery orderByCreatedAt({
+  UserQuery orderByUpdatedAt({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1644,7 +1635,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
     UserDocumentSnapshot? endBeforeDocument,
     UserDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['createdAt']!,
+    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['updatedAt']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -1706,7 +1697,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
   }
 
   @override
-  UserQuery orderByUpdatedAt({
+  UserQuery orderByPhone({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1717,7 +1708,7 @@ class _$UserQuery extends QueryReference<User, UserQuerySnapshot>
     UserDocumentSnapshot? endBeforeDocument,
     UserDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['updatedAt']!,
+    final query = $referenceWithoutCursor.orderBy(_$UserFieldMap['phone']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -1879,21 +1870,21 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       objectId: json['objectId'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
-      createdAt: const FirestoreDateTimeConverter()
-          .fromJson(json['createdAt'] as Timestamp),
       updatedAt: const FirestoreDateTimeConverter()
           .fromJson(json['updatedAt'] as Timestamp),
-      creatorId: json['creatorId'] as String,
+      createdAt: const FirestoreDateTimeConverter()
+          .fromJson(json['createdAt'] as Timestamp),
+      phone: (json['phone'] as num).toInt(),
     );
 
 const _$UserFieldMap = <String, String>{
   'id': 'id',
   'objectId': 'objectId',
-  'creatorId': 'creatorId',
+  'createdAt': 'createdAt',
   'name': 'name',
   'email': 'email',
-  'createdAt': 'createdAt',
   'updatedAt': 'updatedAt',
+  'phone': 'phone',
 };
 
 // ignore: unused_element
@@ -1903,27 +1894,27 @@ abstract class _$UserPerFieldToJson {
   // ignore: unused_element
   static Object? objectId(String instance) => instance;
   // ignore: unused_element
-  static Object? creatorId(String instance) => instance;
+  static Object? createdAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
   // ignore: unused_element
   static Object? name(String instance) => instance;
   // ignore: unused_element
   static Object? email(String instance) => instance;
   // ignore: unused_element
-  static Object? createdAt(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
-  // ignore: unused_element
   static Object? updatedAt(DateTime instance) =>
       const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? phone(int instance) => instance;
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'objectId': instance.objectId,
-      'creatorId': instance.creatorId,
-      'name': instance.name,
-      'email': instance.email,
       'createdAt':
           const FirestoreDateTimeConverter().toJson(instance.createdAt),
+      'name': instance.name,
+      'email': instance.email,
       'updatedAt':
           const FirestoreDateTimeConverter().toJson(instance.updatedAt),
+      'phone': instance.phone,
     };

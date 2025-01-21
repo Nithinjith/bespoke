@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:bespoke/features/employees/data/entities/user_model.dart';
+import 'package:bespoke/routing/route_config.gr.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,7 @@ class EmployeeListPage extends StatelessWidget {
         title: Text('Employees'),
       ),
       body: FirestoreBuilder<UserQuerySnapshot>(
-        ref: userRef.orderByCreatedAt(),
+        ref: userRef,
         builder: (context, snapshot, child) {
           if (snapshot.hasError) {
             return Center(
@@ -47,7 +49,10 @@ class EmployeeListPage extends StatelessWidget {
             },
           );
         },
-      )
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        context.router.push(CreateEmployeeFormRoute());
+      },),
     );
   }
 }

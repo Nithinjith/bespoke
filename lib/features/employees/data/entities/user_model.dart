@@ -12,19 +12,20 @@ class User{
     required this.objectId,
     required this.name,
     required this.email,
-    required this.createdAt,
     required this.updatedAt,
-    required this.creatorId,
-  });
+    required this.createdAt,
+    required this.phone
+  }
+  );
 
   @Id()
   final String id;
   final String objectId;
-  final String creatorId;
+  final DateTime createdAt;
   final String name;
   final String email;
-  final DateTime createdAt;
   final DateTime updatedAt;
+  final int phone;
 
 
   factory User.fromJson(Map<String, dynamic> json) {
