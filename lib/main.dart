@@ -24,7 +24,7 @@ class BeSpokeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
-      theme: darkTheme,
+      theme: lightTheme,
     );
   }
 }

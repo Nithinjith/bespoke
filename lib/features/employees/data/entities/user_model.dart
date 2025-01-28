@@ -34,6 +34,37 @@ class User{
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
+@firestoreSerializable
+class WorkStatus{
+  WorkStatus({
+    required this.id,
+    required this.objectId,
+    required this.workDate,
+    required this.hoursWorked,
+    required this.updatedAt,
+    required this.createdAt,
+    required this.userId,
+    required this.projectId,
+
+  });
+
+  @Id()
+  final String id;
+  final String objectId;
+  final DateTime createdAt;
+  final DateTime workDate;
+  final double hoursWorked; // 4, 8, 12, 16
+  final DateTime updatedAt;
+  final String userId;
+  final String projectId;
+
+  factory WorkStatus.fromJson(Map<String, dynamic> json) {
+    return _$WorkStatusFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$WorkStatusToJson(this);
+}
 
 @Collection<User>('users')
+@Collection<WorkStatus>('users/*/work_status')
 final userRef = UserCollectionReference();

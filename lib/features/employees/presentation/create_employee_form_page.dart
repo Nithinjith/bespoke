@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bespoke/features/employees/data/entities/user_model.dart';
+import 'package:bespoke/features/employees/presentation/project_selection_bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -145,3 +146,4 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
     }
   }
 }
+
