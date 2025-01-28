@@ -24,19 +24,19 @@ class BespokeBottomBar extends StatelessWidget {
       items: [
         _buildBottomNavigationBarItem(
           label: 'Home',
-          iconPath: 'assets/icons/ic_home_enabled.svg',
-        ),
-        _buildBottomNavigationBarItem(
-          label: 'Projects',
-          iconPath: 'assets/icons/ic_home_enabled.svg',
+          iconPath: 'assets/icons/ic_home.png',
         ),
         _buildBottomNavigationBarItem(
           label: 'Employees',
-          iconPath: 'assets/icons/ic_employees.svg',
+          iconPath: 'assets/icons/ic_employees.png',
         ),
         _buildBottomNavigationBarItem(
           label: 'Finance',
-          iconPath: 'assets/icons/ic_finance.svg',
+          iconPath: 'assets/icons/ic_finance.png',
+        ),
+        _buildBottomNavigationBarItem(
+          label: 'Vendors',
+          iconPath: 'assets/icons/ic_finance.png',
         ),
       ],
       onTap: (index) {
@@ -65,7 +65,7 @@ class BespokeBottomBar extends StatelessWidget {
     required String iconPath,
   }) {
     return BottomNavigationBarItem(
-      icon: SvgPicture.asset(
+      icon: Image.asset(
         iconPath,
         width: 28,
         height: 28,
