@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bespoke/features/employees/presentation/add_work_status_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,11 +9,12 @@ class EmployeeSelectionBottomSheet extends StatefulWidget {
   final String employeeId;
 
   @override
-  State<EmployeeSelectionBottomSheet> createState() => _EmployeeSelectionBottomSheetState();
+  State<EmployeeSelectionBottomSheet> createState() =>
+      _EmployeeSelectionBottomSheetState();
 }
 
-class _EmployeeSelectionBottomSheetState extends State<EmployeeSelectionBottomSheet> {
-
+class _EmployeeSelectionBottomSheetState
+    extends State<EmployeeSelectionBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,10 +22,7 @@ class _EmployeeSelectionBottomSheetState extends State<EmployeeSelectionBottomSh
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-           Text(
-            'Select Category',
-            style: Theme.of(context).textTheme.bodyLarge
-          ),
+          Text('Add Category', style: Theme.of(context).textTheme.bodyLarge),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,19 +30,49 @@ class _EmployeeSelectionBottomSheetState extends State<EmployeeSelectionBottomSh
               _BottomSheetItem(
                 label: 'Projects',
                 imagePath: 'assets/icons/ic_project_b_sheet.png',
-                onTap: () => setState((){
+                onTap: () => setState(() {
                   // context.router.push(route)
                 }),
               ),
               _BottomSheetItem(
                 label: 'Work-log',
                 imagePath: 'assets/icons/ic_work_log_b_sheet.png',
-                onTap: () => setState((){}),
+                onTap: () => setState(() {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) => AddWorkStatusBottomSheet(
+                          employeeId: widget.employeeId));
+                }),
               ),
               _BottomSheetItem(
                 label: 'Finance',
                 imagePath: 'assets/icons/ic_finance_b_sheet.png',
-                onTap: () => setState((){}),
+                onTap: () => setState(() {}),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text('Select Category', style: Theme.of(context).textTheme.bodyLarge),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _BottomSheetItem(
+                label: 'Projects',
+                imagePath: 'assets/icons/ic_project_b_sheet.png',
+                onTap: () => setState(() {
+                  // context.router.push(route)
+                }),
+              ),
+              _BottomSheetItem(
+                label: 'Work-log',
+                imagePath: 'assets/icons/ic_work_log_b_sheet.png',
+                onTap: () => setState(() {}),
+              ),
+              _BottomSheetItem(
+                label: 'Finance',
+                imagePath: 'assets/icons/ic_finance_b_sheet.png',
+                onTap: () => setState(() {}),
               ),
             ],
           ),
