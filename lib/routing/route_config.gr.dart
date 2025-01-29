@@ -8,31 +8,32 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:auto_route/auto_route.dart' as _i9;
 import 'package:bespoke/features/auth/presentation/login_screen.dart' as _i5;
-import 'package:bespoke/features/auth/presentation/register_screen.dart' as _i7;
+import 'package:bespoke/features/auth/presentation/register_screen.dart' as _i8;
 import 'package:bespoke/features/employee_details/presentation/employee_detail_page.dart'
     as _i2;
 import 'package:bespoke/features/employees/data/entities/user_model.dart'
-    as _i10;
+    as _i11;
 import 'package:bespoke/features/employees/presentation/create_employee_form_page.dart'
     as _i1;
 import 'package:bespoke/features/employees/presentation/employee_list_page.dart'
     as _i3;
-import 'package:bespoke/features/home/data/entities/project_model.dart' as _i11;
+import 'package:bespoke/features/home/data/entities/project_model.dart' as _i12;
 import 'package:bespoke/features/home/presentation/create_update_project_form.dart'
-    as _i6;
+    as _i7;
 import 'package:bespoke/features/home/presentation/home_page.dart' as _i4;
-import 'package:flutter/material.dart' as _i9;
+import 'package:bespoke/features/profile/presentation/profile_page.dart' as _i6;
+import 'package:flutter/material.dart' as _i10;
 
 /// generated route for
 /// [_i1.CreateEmployeeFormPage]
 class CreateEmployeeFormRoute
-    extends _i8.PageRouteInfo<CreateEmployeeFormRouteArgs> {
+    extends _i9.PageRouteInfo<CreateEmployeeFormRouteArgs> {
   CreateEmployeeFormRoute({
-    _i9.Key? key,
-    _i10.User? initialUser,
-    List<_i8.PageRouteInfo>? children,
+    _i10.Key? key,
+    _i11.User? initialUser,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
           CreateEmployeeFormRoute.name,
           args: CreateEmployeeFormRouteArgs(
@@ -44,7 +45,7 @@ class CreateEmployeeFormRoute
 
   static const String name = 'CreateEmployeeFormRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<CreateEmployeeFormRouteArgs>(
@@ -63,9 +64,9 @@ class CreateEmployeeFormRouteArgs {
     this.initialUser,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
-  final _i10.User? initialUser;
+  final _i11.User? initialUser;
 
   @override
   String toString() {
@@ -75,12 +76,12 @@ class CreateEmployeeFormRouteArgs {
 
 /// generated route for
 /// [_i2.EmployeeDetailPage]
-class EmployeeDetailRoute extends _i8.PageRouteInfo<EmployeeDetailRouteArgs> {
+class EmployeeDetailRoute extends _i9.PageRouteInfo<EmployeeDetailRouteArgs> {
   EmployeeDetailRoute({
-    _i9.Key? key,
+    _i10.Key? key,
     required int tabIndex,
     required String employeeId,
-    List<_i8.PageRouteInfo>? children,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
           EmployeeDetailRoute.name,
           args: EmployeeDetailRouteArgs(
@@ -93,7 +94,7 @@ class EmployeeDetailRoute extends _i8.PageRouteInfo<EmployeeDetailRouteArgs> {
 
   static const String name = 'EmployeeDetailRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<EmployeeDetailRouteArgs>();
@@ -113,7 +114,7 @@ class EmployeeDetailRouteArgs {
     required this.employeeId,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   final int tabIndex;
 
@@ -127,8 +128,8 @@ class EmployeeDetailRouteArgs {
 
 /// generated route for
 /// [_i3.EmployeeListPage]
-class EmployeeListRoute extends _i8.PageRouteInfo<void> {
-  const EmployeeListRoute({List<_i8.PageRouteInfo>? children})
+class EmployeeListRoute extends _i9.PageRouteInfo<void> {
+  const EmployeeListRoute({List<_i9.PageRouteInfo>? children})
       : super(
           EmployeeListRoute.name,
           initialChildren: children,
@@ -136,7 +137,7 @@ class EmployeeListRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'EmployeeListRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       return const _i3.EmployeeListPage();
@@ -146,8 +147,8 @@ class EmployeeListRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.HomePage]
-class HomeRoute extends _i8.PageRouteInfo<void> {
-  const HomeRoute({List<_i8.PageRouteInfo>? children})
+class HomeRoute extends _i9.PageRouteInfo<void> {
+  const HomeRoute({List<_i9.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -155,7 +156,7 @@ class HomeRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       return const _i4.HomePage();
@@ -165,8 +166,8 @@ class HomeRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.LoginPage]
-class LoginRoute extends _i8.PageRouteInfo<void> {
-  const LoginRoute({List<_i8.PageRouteInfo>? children})
+class LoginRoute extends _i9.PageRouteInfo<void> {
+  const LoginRoute({List<_i9.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -174,7 +175,7 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       return const _i5.LoginPage();
@@ -183,12 +184,31 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ProjectFormPage]
-class ProjectFormRoute extends _i8.PageRouteInfo<ProjectFormRouteArgs> {
+/// [_i6.ProfileScreen]
+class ProfileRoute extends _i9.PageRouteInfo<void> {
+  const ProfileRoute({List<_i9.PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static _i9.PageInfo page = _i9.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.ProfileScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i7.ProjectFormPage]
+class ProjectFormRoute extends _i9.PageRouteInfo<ProjectFormRouteArgs> {
   ProjectFormRoute({
-    _i9.Key? key,
-    _i11.Project? project,
-    List<_i8.PageRouteInfo>? children,
+    _i10.Key? key,
+    _i12.Project? project,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
           ProjectFormRoute.name,
           args: ProjectFormRouteArgs(
@@ -200,12 +220,12 @@ class ProjectFormRoute extends _i8.PageRouteInfo<ProjectFormRouteArgs> {
 
   static const String name = 'ProjectFormRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProjectFormRouteArgs>(
           orElse: () => const ProjectFormRouteArgs());
-      return _i6.ProjectFormPage(
+      return _i7.ProjectFormPage(
         key: args.key,
         project: args.project,
       );
@@ -219,9 +239,9 @@ class ProjectFormRouteArgs {
     this.project,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
-  final _i11.Project? project;
+  final _i12.Project? project;
 
   @override
   String toString() {
@@ -230,9 +250,9 @@ class ProjectFormRouteArgs {
 }
 
 /// generated route for
-/// [_i7.RegisterPage]
-class RegisterRoute extends _i8.PageRouteInfo<void> {
-  const RegisterRoute({List<_i8.PageRouteInfo>? children})
+/// [_i8.RegisterPage]
+class RegisterRoute extends _i9.PageRouteInfo<void> {
+  const RegisterRoute({List<_i9.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -240,10 +260,10 @@ class RegisterRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i7.RegisterPage();
+      return const _i8.RegisterPage();
     },
   );
 }

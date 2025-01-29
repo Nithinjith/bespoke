@@ -73,7 +73,6 @@ class Finance{
     required this.createdAt,
     required this.userId,
     required this.projectId,
-    required this.workId,
     required this.amount
 
   });
@@ -85,7 +84,6 @@ class Finance{
   final DateTime updatedAt;
   final String userId;
   final String projectId;
-  final String workId;
   final double amount;
 
   factory Finance.fromJson(Map<String, dynamic> json) {

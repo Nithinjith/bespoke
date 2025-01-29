@@ -55,8 +55,6 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
   final TextEditingController _amountController = TextEditingController();
   String? _selectedProject;
 
-  final List<String> _projects = ['Project A', 'Project B', 'Project C'];
-
   void _pickDate() async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -69,7 +67,7 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
     }
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
       if (_selectedDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +80,30 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
       print('Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}');
       print('Amount: ${_amountController.text}');
       print('Project: $_selectedProject');
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.employeeId)
+          .collection('finance')
+          .add({
+        "updatedAt": FieldValue.serverTimestamp(),
+        "createdAt": FieldValue.serverTimestamp(),
+        "userId": widget.employeeId,
+        "projectId": _selectedProject,
+        "amount": double.parse(_amountController.text)
+      });
+
+      // userRef
+      //     .doc(widget.employeeId)
+      //     .finance
+      //     .add(Finance(id: '',
+      //     objectId: '',
+      //     updatedAt: FieldValue.serverTimestamp(),
+      //     createdAt: FieldValue.serverTimestamp(),
+      //     userId: widget.employeeId,
+      //     projectId: _selectedProject,
+      //     workId: 'workId',
+      //     amount: double.parse(_amountController.text)));
 
       Navigator.pop(context); // Close the bottom sheet
     }
@@ -143,7 +165,7 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
                     SizedBox(height: 16),
 
                     // Project Dropdown
-                    buildDropdownButtonFormField(widget.employeeId ),
+                    buildDropdownButtonFormField(widget.employeeId),
 
                     SizedBox(height: 24),
 
@@ -166,10 +188,14 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
     );
   }
 
-  Widget buildDropdownButtonFormField( String employeeId) {
+  Widget buildDropdownButtonFormField(String employeeId) {
     return ref.watch(associatedProjectProvider(employeeId)).when(
           data: (data) {
-            var projectNameList = data!.map((e) => e.name,).toList();
+            var projectNameList = data!
+                .map(
+                  (e) => e.name,
+                )
+                .toList();
             return DropdownButtonFormField<String>(
               value: _selectedProject,
               decoration: InputDecoration(

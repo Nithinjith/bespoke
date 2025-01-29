@@ -4133,7 +4133,6 @@ abstract class FinanceDocumentReference
     FieldValue updatedAtFieldValue,
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
-    FieldValue workIdFieldValue,
     FieldValue amountFieldValue,
   });
 
@@ -4153,7 +4152,6 @@ abstract class FinanceDocumentReference
     FieldValue updatedAtFieldValue,
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
-    FieldValue workIdFieldValue,
     FieldValue amountFieldValue,
   });
 
@@ -4173,7 +4171,6 @@ abstract class FinanceDocumentReference
     FieldValue updatedAtFieldValue,
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
-    FieldValue workIdFieldValue,
     FieldValue amountFieldValue,
   });
 
@@ -4192,8 +4189,6 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     String projectId,
     FieldValue projectIdFieldValue,
-    String workId,
-    FieldValue workIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
   });
@@ -4213,8 +4208,6 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     String projectId,
     FieldValue projectIdFieldValue,
-    String workId,
-    FieldValue workIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
   });
@@ -4234,8 +4227,6 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     String projectId,
     FieldValue projectIdFieldValue,
-    String workId,
-    FieldValue workIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
   });
@@ -4282,7 +4273,6 @@ class _$FinanceDocumentReference
     FieldValue? updatedAtFieldValue,
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
-    FieldValue? workIdFieldValue,
     FieldValue? amountFieldValue,
   }) async {
     final json = {
@@ -4297,8 +4287,6 @@ class _$FinanceDocumentReference
         _$FinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amountFieldValue != null)
         _$FinanceFieldMap['amount']!: amountFieldValue,
     };
@@ -4319,7 +4307,6 @@ class _$FinanceDocumentReference
     FieldValue? updatedAtFieldValue,
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
-    FieldValue? workIdFieldValue,
     FieldValue? amountFieldValue,
   }) {
     final json = {
@@ -4334,8 +4321,6 @@ class _$FinanceDocumentReference
         _$FinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amountFieldValue != null)
         _$FinanceFieldMap['amount']!: amountFieldValue,
     };
@@ -4352,7 +4337,6 @@ class _$FinanceDocumentReference
     FieldValue? updatedAtFieldValue,
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
-    FieldValue? workIdFieldValue,
     FieldValue? amountFieldValue,
   }) {
     final json = {
@@ -4367,8 +4351,6 @@ class _$FinanceDocumentReference
         _$FinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amountFieldValue != null)
         _$FinanceFieldMap['amount']!: amountFieldValue,
     };
@@ -4387,8 +4369,6 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     Object? projectId = _sentinel,
     FieldValue? projectIdFieldValue,
-    Object? workId = _sentinel,
-    FieldValue? workIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
   }) async {
@@ -4411,10 +4391,6 @@ class _$FinanceDocumentReference
     assert(
       projectId == _sentinel || projectIdFieldValue == null,
       "Cannot specify both projectId and projectIdFieldValue",
-    );
-    assert(
-      workId == _sentinel || workIdFieldValue == null,
-      "Cannot specify both workId and workIdFieldValue",
     );
     assert(
       amount == _sentinel || amountFieldValue == null,
@@ -4446,11 +4422,6 @@ class _$FinanceDocumentReference
             _$FinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workId != _sentinel)
-        _$FinanceFieldMap['workId']!:
-            _$FinancePerFieldToJson.workId(workId as String),
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amount != _sentinel)
         _$FinanceFieldMap['amount']!:
             _$FinancePerFieldToJson.amount(amount as double),
@@ -4473,8 +4444,6 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     Object? projectId = _sentinel,
     FieldValue? projectIdFieldValue,
-    Object? workId = _sentinel,
-    FieldValue? workIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
   }) {
@@ -4497,10 +4466,6 @@ class _$FinanceDocumentReference
     assert(
       projectId == _sentinel || projectIdFieldValue == null,
       "Cannot specify both projectId and projectIdFieldValue",
-    );
-    assert(
-      workId == _sentinel || workIdFieldValue == null,
-      "Cannot specify both workId and workIdFieldValue",
     );
     assert(
       amount == _sentinel || amountFieldValue == null,
@@ -4532,11 +4497,6 @@ class _$FinanceDocumentReference
             _$FinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workId != _sentinel)
-        _$FinanceFieldMap['workId']!:
-            _$FinancePerFieldToJson.workId(workId as String),
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amount != _sentinel)
         _$FinanceFieldMap['amount']!:
             _$FinancePerFieldToJson.amount(amount as double),
@@ -4559,8 +4519,6 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     Object? projectId = _sentinel,
     FieldValue? projectIdFieldValue,
-    Object? workId = _sentinel,
-    FieldValue? workIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
   }) {
@@ -4583,10 +4541,6 @@ class _$FinanceDocumentReference
     assert(
       projectId == _sentinel || projectIdFieldValue == null,
       "Cannot specify both projectId and projectIdFieldValue",
-    );
-    assert(
-      workId == _sentinel || workIdFieldValue == null,
-      "Cannot specify both workId and workIdFieldValue",
     );
     assert(
       amount == _sentinel || amountFieldValue == null,
@@ -4618,11 +4572,6 @@ class _$FinanceDocumentReference
             _$FinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
         _$FinanceFieldMap['projectId']!: projectIdFieldValue,
-      if (workId != _sentinel)
-        _$FinanceFieldMap['workId']!:
-            _$FinancePerFieldToJson.workId(workId as String),
-      if (workIdFieldValue != null)
-        _$FinanceFieldMap['workId']!: workIdFieldValue,
       if (amount != _sentinel)
         _$FinanceFieldMap['amount']!:
             _$FinancePerFieldToJson.amount(amount as double),
@@ -4757,18 +4706,6 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereWorkId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-    bool? isNull,
-  });
-
   FinanceQuery whereAmount({
     double? isEqualTo,
     double? isNotEqualTo,
@@ -4875,18 +4812,6 @@ abstract class FinanceQuery
   });
 
   FinanceQuery orderByProjectId({
-    bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
-  });
-
-  FinanceQuery orderByWorkId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -5239,50 +5164,6 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
         whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
         whereNotIn:
             whereNotIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
-        isNull: isNull ??
-            (isEqualTo == null ? false : null) ??
-            (isNotEqualTo == null ? true : null),
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
-  @override
-  FinanceQuery whereWorkId({
-    Object? isEqualTo = _sentinel,
-    Object? isNotEqualTo = _sentinel,
-    Object? isLessThan,
-    Object? isLessThanOrEqualTo,
-    Object? isGreaterThan,
-    Object? isGreaterThanOrEqualTo,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-    bool? isNull,
-  }) {
-    return _$FinanceQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['workId']!,
-        isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.workId(isEqualTo as String)
-            : null,
-        isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.workId(isNotEqualTo as String)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.workId(isLessThan as String)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.workId(isLessThanOrEqualTo as String)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.workId(isGreaterThan as String)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.workId(isGreaterThanOrEqualTo as String)
-            : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.workId(e)),
-        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.workId(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5788,79 +5669,6 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }) {
     final query = $referenceWithoutCursor
         .orderBy(_$FinanceFieldMap['projectId']!, descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$FinanceQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
-  @override
-  FinanceQuery orderByWorkId({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['workId']!,
-        descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -7744,7 +7552,6 @@ Finance _$FinanceFromJson(Map<String, dynamic> json) => Finance(
           .fromJson(json['createdAt'] as Timestamp),
       userId: json['userId'] as String,
       projectId: json['projectId'] as String,
-      workId: json['workId'] as String,
       amount: (json['amount'] as num).toDouble(),
     );
 
@@ -7755,7 +7562,6 @@ const _$FinanceFieldMap = <String, String>{
   'updatedAt': 'updatedAt',
   'userId': 'userId',
   'projectId': 'projectId',
-  'workId': 'workId',
   'amount': 'amount',
 };
 
@@ -7776,8 +7582,6 @@ abstract class _$FinancePerFieldToJson {
   // ignore: unused_element
   static Object? projectId(String instance) => instance;
   // ignore: unused_element
-  static Object? workId(String instance) => instance;
-  // ignore: unused_element
   static Object? amount(double instance) => instance;
 }
 
@@ -7790,7 +7594,6 @@ Map<String, dynamic> _$FinanceToJson(Finance instance) => <String, dynamic>{
           const FirestoreDateTimeConverter().toJson(instance.updatedAt),
       'userId': instance.userId,
       'projectId': instance.projectId,
-      'workId': instance.workId,
       'amount': instance.amount,
     };
 
