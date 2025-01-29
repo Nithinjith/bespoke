@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bespoke/features/employee_details/presentation/add_finance_bottom_sheet.dart';
 import 'package:bespoke/features/employees/presentation/add_work_status_bottom_sheet.dart';
+import 'package:bespoke/features/employees/presentation/project_selection_bottom_sheet.dart';
+import 'package:bespoke/routing/route_config.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -31,7 +34,9 @@ class _EmployeeSelectionBottomSheetState
                 label: 'Projects',
                 imagePath: 'assets/icons/ic_project_b_sheet.png',
                 onTap: () => setState(() {
-                  // context.router.push(route)
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) => SelectProjectBottomSheet(userId: widget.employeeId, ));
                 }),
               ),
               _BottomSheetItem(
@@ -47,7 +52,9 @@ class _EmployeeSelectionBottomSheetState
               _BottomSheetItem(
                 label: 'Finance',
                 imagePath: 'assets/icons/ic_finance_b_sheet.png',
-                onTap: () => setState(() {}),
+                onTap: () => setState(() {
+                   showFinanceBottomSheet(context, widget.employeeId);
+                }),
               ),
             ],
           ),
@@ -61,18 +68,22 @@ class _EmployeeSelectionBottomSheetState
                 label: 'Projects',
                 imagePath: 'assets/icons/ic_project_b_sheet.png',
                 onTap: () => setState(() {
-                  // context.router.push(route)
+                  context.router.push(EmployeeDetailRoute(tabIndex: 0, employeeId: widget.employeeId));
                 }),
               ),
               _BottomSheetItem(
                 label: 'Work-log',
                 imagePath: 'assets/icons/ic_work_log_b_sheet.png',
-                onTap: () => setState(() {}),
+                onTap: () => setState(() {
+                  context.router.push(EmployeeDetailRoute(tabIndex: 1, employeeId: widget.employeeId));
+                }),
               ),
               _BottomSheetItem(
                 label: 'Finance',
                 imagePath: 'assets/icons/ic_finance_b_sheet.png',
-                onTap: () => setState(() {}),
+                onTap: () => setState(() {
+                  context.router.push(EmployeeDetailRoute(tabIndex: 2, employeeId: widget.employeeId));
+                }),
               ),
             ],
           ),

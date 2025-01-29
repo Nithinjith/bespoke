@@ -4,14 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../home/data/entities/project_model.dart';
 
-class SelectProjectBottomSheet extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
-  const SelectProjectBottomSheet({super.key,});
+import '../data/entities/user_model.dart';
+
+class SelectProjectBottomSheet extends StatefulWidget {
+  final String userId; // User ID to assign the project
+
+  const SelectProjectBottomSheet({super.key, required this.userId});
+
+  @override
+  _SelectProjectBottomSheetState createState() => _SelectProjectBottomSheetState();
+}
+
+class _SelectProjectBottomSheetState extends State<SelectProjectBottomSheet> {
+  String? selectedProjectId;
 
   @override
   Widget build(BuildContext context) {
-    String? selectedProjectId;
-
     return DraggableScrollableSheet(
       expand: false,
       builder: (context, scrollController) {
@@ -22,15 +34,17 @@ class SelectProjectBottomSheet extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Select a Project',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
+
               Expanded(
                 child: FirestoreBuilder<ProjectQuerySnapshot>(
-                  ref:  projectRef.orderByCreatedAt(),
+                  ref: projectRef.orderByCreatedAt(),
                   builder: (context, AsyncSnapshot<ProjectQuerySnapshot> snapshot, _) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -51,18 +65,23 @@ class SelectProjectBottomSheet extends StatelessWidget {
                       itemCount: projectDocs.length,
                       itemBuilder: (context, index) {
                         final project = projectDocs[index].data;
+
                         return ListTile(
                           title: Text(project.name),
-                          subtitle: Text('Created At: ${project.createdAt}'),
+                          subtitle: Text('Created At: ${DateFormat('yyyy-MM-dd').format(project.createdAt)}'),
                           leading: Radio<String>(
                             value: projectDocs[index].id,
                             groupValue: selectedProjectId,
                             onChanged: (value) {
-                              selectedProjectId = value;
+                              setState(() {
+                                selectedProjectId = value;
+                              });
                             },
                           ),
                           onTap: () {
-                            selectedProjectId = projectDocs[index].id;
+                            setState(() {
+                              selectedProjectId = projectDocs[index].id;
+                            });
                           },
                         );
                       },
@@ -70,7 +89,10 @@ class SelectProjectBottomSheet extends StatelessWidget {
                   },
                 ),
               ),
+
               const SizedBox(height: 16),
+
+              // Submit Button
               ElevatedButton(
                 onPressed: () async {
                   if (selectedProjectId == null) {
@@ -81,13 +103,25 @@ class SelectProjectBottomSheet extends StatelessWidget {
                   }
 
                   try {
-                    await FirebaseFirestore.instance.collection('selectedProjects').add({
-                      'projectId': selectedProjectId,
-                      'timestamp': FieldValue.serverTimestamp(),
-                    });
+                    final newUserProject = UserProject(
+                      id: selectedProjectId!,
+                      objectId: selectedProjectId!,
+                      createdAt: DateTime.now(),
+                      updatedAt: DateTime.now(),
+                      userId: widget.userId,
+                    );
+                    // await userRef.doc(widget.userId).userProjects.add(newUserProject);
+
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(widget.userId)
+                        .collection('user_projects')
+                        .doc(newUserProject.id)
+                        .set(newUserProject.toJson());
+
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Project data pushed successfully.')),
+                      const SnackBar(content: Text('Project assigned successfully.')),
                     );
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -95,7 +129,8 @@ class SelectProjectBottomSheet extends StatelessWidget {
                     );
                   }
                 },
-                child: const Text('Submit'),
+                style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+                child: const Text('Assign Project'),
               ),
             ],
           ),
@@ -104,3 +139,4 @@ class SelectProjectBottomSheet extends StatelessWidget {
     );
   }
 }
+

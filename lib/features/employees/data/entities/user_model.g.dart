@@ -120,6 +120,15 @@ abstract class UserDocumentReference
     reference,
   );
 
+  late final FinanceCollectionReference finance = _$FinanceCollectionReference(
+    reference,
+  );
+
+  late final UserProjectCollectionReference userProjects =
+      _$UserProjectCollectionReference(
+    reference,
+  );
+
   @override
   Stream<UserDocumentSnapshot> snapshots();
 
@@ -259,6 +268,15 @@ class _$UserDocumentReference
 
   late final WorkStatusCollectionReference workStatus =
       _$WorkStatusCollectionReference(
+    reference,
+  );
+
+  late final FinanceCollectionReference finance = _$FinanceCollectionReference(
+    reference,
+  );
+
+  late final UserProjectCollectionReference userProjects =
+      _$UserProjectCollectionReference(
     reference,
   );
 
@@ -3979,6 +3997,3624 @@ class WorkStatusQueryDocumentSnapshot
   }
 }
 
+/// A collection reference object can be used for adding documents,
+/// getting document references, and querying for documents
+/// (using the methods inherited from Query).
+abstract class FinanceCollectionReference
+    implements
+        FinanceQuery,
+        FirestoreCollectionReference<Finance, FinanceQuerySnapshot> {
+  factory FinanceCollectionReference(
+    DocumentReference<User> parent,
+  ) = _$FinanceCollectionReference;
+
+  static Finance fromFirestore(
+    DocumentSnapshot<Map<String, Object?>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    return Finance.fromJson({'id': snapshot.id, ...?snapshot.data()});
+  }
+
+  static Map<String, Object?> toFirestore(
+    Finance value,
+    SetOptions? options,
+  ) {
+    return {...value.toJson()}..remove('id');
+  }
+
+  @override
+  CollectionReference<Finance> get reference;
+
+  /// A reference to the containing [UserDocumentReference] if this is a subcollection.
+  UserDocumentReference get parent;
+
+  @override
+  FinanceDocumentReference doc([String? id]);
+
+  /// Add a new document to this collection with the specified data,
+  /// assigning it a document ID automatically.
+  Future<FinanceDocumentReference> add(Finance value);
+}
+
+class _$FinanceCollectionReference extends _$FinanceQuery
+    implements FinanceCollectionReference {
+  factory _$FinanceCollectionReference(
+    DocumentReference<User> parent,
+  ) {
+    return _$FinanceCollectionReference._(
+      UserDocumentReference(parent),
+      parent.collection('finance').withConverter(
+            fromFirestore: FinanceCollectionReference.fromFirestore,
+            toFirestore: FinanceCollectionReference.toFirestore,
+          ),
+    );
+  }
+
+  _$FinanceCollectionReference._(
+    this.parent,
+    CollectionReference<Finance> reference,
+  ) : super(reference, $referenceWithoutCursor: reference);
+
+  @override
+  final UserDocumentReference parent;
+
+  String get path => reference.path;
+
+  @override
+  CollectionReference<Finance> get reference =>
+      super.reference as CollectionReference<Finance>;
+
+  @override
+  FinanceDocumentReference doc([String? id]) {
+    assert(
+      id == null || id.split('/').length == 1,
+      'The document ID cannot be from a different collection',
+    );
+    return FinanceDocumentReference(
+      reference.doc(id),
+    );
+  }
+
+  @override
+  Future<FinanceDocumentReference> add(Finance value) {
+    return reference.add(value).then((ref) => FinanceDocumentReference(ref));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$FinanceCollectionReference &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+abstract class FinanceDocumentReference
+    extends FirestoreDocumentReference<Finance, FinanceDocumentSnapshot> {
+  factory FinanceDocumentReference(DocumentReference<Finance> reference) =
+      _$FinanceDocumentReference;
+
+  DocumentReference<Finance> get reference;
+
+  /// A reference to the [FinanceCollectionReference] containing this document.
+  FinanceCollectionReference get parent {
+    return _$FinanceCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<FinanceDocumentSnapshot> snapshots();
+
+  @override
+  Future<FinanceDocumentSnapshot> get([GetOptions? options]);
+
+  @override
+  Future<void> delete();
+
+  /// Sets data on the document, overwriting any existing data. If the document
+  /// does not yet exist, it will be created.
+  ///
+  /// If [SetOptions] are provided, the data can be merged into an existing
+  /// document instead of overwriting.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  Future<void> set(
+    Finance model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+    FieldValue projectIdFieldValue,
+    FieldValue workIdFieldValue,
+    FieldValue amountFieldValue,
+  });
+
+  /// Writes to the document using the transaction API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void transactionSet(
+    Transaction transaction,
+    Finance model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+    FieldValue projectIdFieldValue,
+    FieldValue workIdFieldValue,
+    FieldValue amountFieldValue,
+  });
+
+  /// Writes to the document using the batch API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void batchSet(
+    WriteBatch batch,
+    Finance model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+    FieldValue projectIdFieldValue,
+    FieldValue workIdFieldValue,
+    FieldValue amountFieldValue,
+  });
+
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
+  Future<void> update({
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+    String projectId,
+    FieldValue projectIdFieldValue,
+    String workId,
+    FieldValue workIdFieldValue,
+    double amount,
+    FieldValue amountFieldValue,
+  });
+
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+    String projectId,
+    FieldValue projectIdFieldValue,
+    String workId,
+    FieldValue workIdFieldValue,
+    double amount,
+    FieldValue amountFieldValue,
+  });
+
+  /// Updates fields in the current document using the batch API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void batchUpdate(
+    WriteBatch batch, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+    String projectId,
+    FieldValue projectIdFieldValue,
+    String workId,
+    FieldValue workIdFieldValue,
+    double amount,
+    FieldValue amountFieldValue,
+  });
+}
+
+class _$FinanceDocumentReference
+    extends FirestoreDocumentReference<Finance, FinanceDocumentSnapshot>
+    implements FinanceDocumentReference {
+  _$FinanceDocumentReference(this.reference);
+
+  @override
+  final DocumentReference<Finance> reference;
+
+  /// A reference to the [FinanceCollectionReference] containing this document.
+  FinanceCollectionReference get parent {
+    return _$FinanceCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<FinanceDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(FinanceDocumentSnapshot._);
+  }
+
+  @override
+  Future<FinanceDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(FinanceDocumentSnapshot._);
+  }
+
+  @override
+  Future<FinanceDocumentSnapshot> transactionGet(Transaction transaction) {
+    return transaction.get(reference).then(FinanceDocumentSnapshot._);
+  }
+
+  Future<void> set(
+    Finance model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+    FieldValue? projectIdFieldValue,
+    FieldValue? workIdFieldValue,
+    FieldValue? amountFieldValue,
+  }) async {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    final castedReference = reference.withConverter<Map<String, dynamic>>(
+      fromFirestore: (snapshot, options) => throw UnimplementedError(),
+      toFirestore: (value, options) => value,
+    );
+    return castedReference.set(json, options);
+  }
+
+  void transactionSet(
+    Transaction transaction,
+    Finance model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+    FieldValue? projectIdFieldValue,
+    FieldValue? workIdFieldValue,
+    FieldValue? amountFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    transaction.set(reference, json, options);
+  }
+
+  void batchSet(
+    WriteBatch batch,
+    Finance model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+    FieldValue? projectIdFieldValue,
+    FieldValue? workIdFieldValue,
+    FieldValue? amountFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    batch.set(reference, json, options);
+  }
+
+  Future<void> update({
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+    Object? projectId = _sentinel,
+    FieldValue? projectIdFieldValue,
+    Object? workId = _sentinel,
+    FieldValue? workIdFieldValue,
+    Object? amount = _sentinel,
+    FieldValue? amountFieldValue,
+  }) async {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    assert(
+      projectId == _sentinel || projectIdFieldValue == null,
+      "Cannot specify both projectId and projectIdFieldValue",
+    );
+    assert(
+      workId == _sentinel || workIdFieldValue == null,
+      "Cannot specify both workId and workIdFieldValue",
+    );
+    assert(
+      amount == _sentinel || amountFieldValue == null,
+      "Cannot specify both amount and amountFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$FinanceFieldMap['objectId']!:
+            _$FinancePerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$FinanceFieldMap['createdAt']!:
+            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$FinanceFieldMap['updatedAt']!:
+            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$FinanceFieldMap['userId']!:
+            _$FinancePerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectId != _sentinel)
+        _$FinanceFieldMap['projectId']!:
+            _$FinancePerFieldToJson.projectId(projectId as String),
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workId != _sentinel)
+        _$FinanceFieldMap['workId']!:
+            _$FinancePerFieldToJson.workId(workId as String),
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amount != _sentinel)
+        _$FinanceFieldMap['amount']!:
+            _$FinancePerFieldToJson.amount(amount as double),
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    return reference.update(json);
+  }
+
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+    Object? projectId = _sentinel,
+    FieldValue? projectIdFieldValue,
+    Object? workId = _sentinel,
+    FieldValue? workIdFieldValue,
+    Object? amount = _sentinel,
+    FieldValue? amountFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    assert(
+      projectId == _sentinel || projectIdFieldValue == null,
+      "Cannot specify both projectId and projectIdFieldValue",
+    );
+    assert(
+      workId == _sentinel || workIdFieldValue == null,
+      "Cannot specify both workId and workIdFieldValue",
+    );
+    assert(
+      amount == _sentinel || amountFieldValue == null,
+      "Cannot specify both amount and amountFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$FinanceFieldMap['objectId']!:
+            _$FinancePerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$FinanceFieldMap['createdAt']!:
+            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$FinanceFieldMap['updatedAt']!:
+            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$FinanceFieldMap['userId']!:
+            _$FinancePerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectId != _sentinel)
+        _$FinanceFieldMap['projectId']!:
+            _$FinancePerFieldToJson.projectId(projectId as String),
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workId != _sentinel)
+        _$FinanceFieldMap['workId']!:
+            _$FinancePerFieldToJson.workId(workId as String),
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amount != _sentinel)
+        _$FinanceFieldMap['amount']!:
+            _$FinancePerFieldToJson.amount(amount as double),
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    transaction.update(reference, json);
+  }
+
+  void batchUpdate(
+    WriteBatch batch, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+    Object? projectId = _sentinel,
+    FieldValue? projectIdFieldValue,
+    Object? workId = _sentinel,
+    FieldValue? workIdFieldValue,
+    Object? amount = _sentinel,
+    FieldValue? amountFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    assert(
+      projectId == _sentinel || projectIdFieldValue == null,
+      "Cannot specify both projectId and projectIdFieldValue",
+    );
+    assert(
+      workId == _sentinel || workIdFieldValue == null,
+      "Cannot specify both workId and workIdFieldValue",
+    );
+    assert(
+      amount == _sentinel || amountFieldValue == null,
+      "Cannot specify both amount and amountFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$FinanceFieldMap['objectId']!:
+            _$FinancePerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$FinanceFieldMap['createdAt']!:
+            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$FinanceFieldMap['updatedAt']!:
+            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$FinanceFieldMap['userId']!:
+            _$FinancePerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$FinanceFieldMap['userId']!: userIdFieldValue,
+      if (projectId != _sentinel)
+        _$FinanceFieldMap['projectId']!:
+            _$FinancePerFieldToJson.projectId(projectId as String),
+      if (projectIdFieldValue != null)
+        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+      if (workId != _sentinel)
+        _$FinanceFieldMap['workId']!:
+            _$FinancePerFieldToJson.workId(workId as String),
+      if (workIdFieldValue != null)
+        _$FinanceFieldMap['workId']!: workIdFieldValue,
+      if (amount != _sentinel)
+        _$FinanceFieldMap['amount']!:
+            _$FinancePerFieldToJson.amount(amount as double),
+      if (amountFieldValue != null)
+        _$FinanceFieldMap['amount']!: amountFieldValue,
+    };
+
+    batch.update(reference, json);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FinanceDocumentReference &&
+        other.runtimeType == runtimeType &&
+        other.parent == parent &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, parent, id);
+}
+
+abstract class FinanceQuery
+    implements QueryReference<Finance, FinanceQuerySnapshot> {
+  @override
+  FinanceQuery limit(int limit);
+
+  @override
+  FinanceQuery limitToLast(int limit);
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  FinanceQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereDocumentId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereObjectId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereUserId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereProjectId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereWorkId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  FinanceQuery whereAmount({
+    double? isEqualTo,
+    double? isNotEqualTo,
+    double? isLessThan,
+    double? isLessThanOrEqualTo,
+    double? isGreaterThan,
+    double? isGreaterThanOrEqualTo,
+    List<double>? whereIn,
+    List<double>? whereNotIn,
+    bool? isNull,
+  });
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  FinanceQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object startAt,
+    Object startAfter,
+    Object endAt,
+    Object endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByObjectId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByCreatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByUpdatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByUserId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByProjectId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByWorkId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  FinanceQuery orderByAmount({
+    bool descending = false,
+    double startAt,
+    double startAfter,
+    double endAt,
+    double endBefore,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  });
+}
+
+class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
+    implements FinanceQuery {
+  _$FinanceQuery(
+    this._collection, {
+    required Query<Finance> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
+
+  final CollectionReference<Object?> _collection;
+
+  @override
+  Stream<FinanceQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference.snapshots().map(FinanceQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  Future<FinanceQuerySnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(FinanceQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  FinanceQuery limit(int limit) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery limitToLast(int limit) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        fieldPath,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereDocumentId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        FieldPath.documentId,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereObjectId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['objectId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.objectId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.objectId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.objectId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.objectId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.objectId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.objectId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.objectId(e)),
+        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.objectId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereCreatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['createdAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.createdAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.createdAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.createdAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.createdAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.createdAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson
+                .createdAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.createdAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$FinancePerFieldToJson.createdAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereUpdatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['updatedAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.updatedAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.updatedAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.updatedAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.updatedAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.updatedAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson
+                .updatedAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.updatedAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$FinancePerFieldToJson.updatedAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereUserId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['userId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.userId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.userId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.userId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.userId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.userId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.userId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.userId(e)),
+        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.userId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereProjectId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['projectId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.projectId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.projectId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.projectId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.projectId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.projectId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson
+                .projectId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereWorkId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['workId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.workId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.workId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.workId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.workId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.workId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.workId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.workId(e)),
+        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.workId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery whereAmount({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<double>? whereIn,
+    List<double>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$FinanceFieldMap['amount']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.amount(isEqualTo as double)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$FinancePerFieldToJson.amount(isNotEqualTo as double)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$FinancePerFieldToJson.amount(isLessThan as double)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.amount(isLessThanOrEqualTo as double)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$FinancePerFieldToJson.amount(isGreaterThan as double)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$FinancePerFieldToJson.amount(isGreaterThanOrEqualTo as double)
+            : null,
+        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.amount(e)),
+        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.amount(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByDocumentId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByObjectId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$FinanceFieldMap['objectId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByCreatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$FinanceFieldMap['createdAt']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByUpdatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$FinanceFieldMap['updatedAt']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByUserId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['userId']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByProjectId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$FinanceFieldMap['projectId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByWorkId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['workId']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  FinanceQuery orderByAmount({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    FinanceDocumentSnapshot? startAtDocument,
+    FinanceDocumentSnapshot? endAtDocument,
+    FinanceDocumentSnapshot? endBeforeDocument,
+    FinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['amount']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$FinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$FinanceQuery &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+class FinanceDocumentSnapshot extends FirestoreDocumentSnapshot<Finance> {
+  FinanceDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<Finance> snapshot;
+
+  @override
+  FinanceDocumentReference get reference {
+    return FinanceDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final Finance? data;
+}
+
+class FinanceQuerySnapshot
+    extends FirestoreQuerySnapshot<Finance, FinanceQueryDocumentSnapshot> {
+  FinanceQuerySnapshot._(
+    this.snapshot,
+    this.docs,
+    this.docChanges,
+  );
+
+  factory FinanceQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<Finance> snapshot,
+  ) {
+    final docs = snapshot.docs.map(FinanceQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        FinanceDocumentSnapshot._,
+      );
+    }).toList();
+
+    return FinanceQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<FinanceDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    FinanceDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+  ) {
+    return FirestoreDocumentChange<FinanceDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
+
+  final QuerySnapshot<Finance> snapshot;
+
+  @override
+  final List<FinanceQueryDocumentSnapshot> docs;
+
+  @override
+  final List<FirestoreDocumentChange<FinanceDocumentSnapshot>> docChanges;
+}
+
+class FinanceQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<Finance>
+    implements FinanceDocumentSnapshot {
+  FinanceQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final QueryDocumentSnapshot<Finance> snapshot;
+
+  @override
+  final Finance data;
+
+  @override
+  FinanceDocumentReference get reference {
+    return FinanceDocumentReference(snapshot.reference);
+  }
+}
+
+/// A collection reference object can be used for adding documents,
+/// getting document references, and querying for documents
+/// (using the methods inherited from Query).
+abstract class UserProjectCollectionReference
+    implements
+        UserProjectQuery,
+        FirestoreCollectionReference<UserProject, UserProjectQuerySnapshot> {
+  factory UserProjectCollectionReference(
+    DocumentReference<User> parent,
+  ) = _$UserProjectCollectionReference;
+
+  static UserProject fromFirestore(
+    DocumentSnapshot<Map<String, Object?>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    return UserProject.fromJson({'id': snapshot.id, ...?snapshot.data()});
+  }
+
+  static Map<String, Object?> toFirestore(
+    UserProject value,
+    SetOptions? options,
+  ) {
+    return {...value.toJson()}..remove('id');
+  }
+
+  @override
+  CollectionReference<UserProject> get reference;
+
+  /// A reference to the containing [UserDocumentReference] if this is a subcollection.
+  UserDocumentReference get parent;
+
+  @override
+  UserProjectDocumentReference doc([String? id]);
+
+  /// Add a new document to this collection with the specified data,
+  /// assigning it a document ID automatically.
+  Future<UserProjectDocumentReference> add(UserProject value);
+}
+
+class _$UserProjectCollectionReference extends _$UserProjectQuery
+    implements UserProjectCollectionReference {
+  factory _$UserProjectCollectionReference(
+    DocumentReference<User> parent,
+  ) {
+    return _$UserProjectCollectionReference._(
+      UserDocumentReference(parent),
+      parent.collection('user_projects').withConverter(
+            fromFirestore: UserProjectCollectionReference.fromFirestore,
+            toFirestore: UserProjectCollectionReference.toFirestore,
+          ),
+    );
+  }
+
+  _$UserProjectCollectionReference._(
+    this.parent,
+    CollectionReference<UserProject> reference,
+  ) : super(reference, $referenceWithoutCursor: reference);
+
+  @override
+  final UserDocumentReference parent;
+
+  String get path => reference.path;
+
+  @override
+  CollectionReference<UserProject> get reference =>
+      super.reference as CollectionReference<UserProject>;
+
+  @override
+  UserProjectDocumentReference doc([String? id]) {
+    assert(
+      id == null || id.split('/').length == 1,
+      'The document ID cannot be from a different collection',
+    );
+    return UserProjectDocumentReference(
+      reference.doc(id),
+    );
+  }
+
+  @override
+  Future<UserProjectDocumentReference> add(UserProject value) {
+    return reference
+        .add(value)
+        .then((ref) => UserProjectDocumentReference(ref));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$UserProjectCollectionReference &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+abstract class UserProjectDocumentReference extends FirestoreDocumentReference<
+    UserProject, UserProjectDocumentSnapshot> {
+  factory UserProjectDocumentReference(
+          DocumentReference<UserProject> reference) =
+      _$UserProjectDocumentReference;
+
+  DocumentReference<UserProject> get reference;
+
+  /// A reference to the [UserProjectCollectionReference] containing this document.
+  UserProjectCollectionReference get parent {
+    return _$UserProjectCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<UserProjectDocumentSnapshot> snapshots();
+
+  @override
+  Future<UserProjectDocumentSnapshot> get([GetOptions? options]);
+
+  @override
+  Future<void> delete();
+
+  /// Sets data on the document, overwriting any existing data. If the document
+  /// does not yet exist, it will be created.
+  ///
+  /// If [SetOptions] are provided, the data can be merged into an existing
+  /// document instead of overwriting.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  Future<void> set(
+    UserProject model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Writes to the document using the transaction API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void transactionSet(
+    Transaction transaction,
+    UserProject model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Writes to the document using the batch API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void batchSet(
+    WriteBatch batch,
+    UserProject model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
+  Future<void> update({
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the batch API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void batchUpdate(
+    WriteBatch batch, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+}
+
+class _$UserProjectDocumentReference
+    extends FirestoreDocumentReference<UserProject, UserProjectDocumentSnapshot>
+    implements UserProjectDocumentReference {
+  _$UserProjectDocumentReference(this.reference);
+
+  @override
+  final DocumentReference<UserProject> reference;
+
+  /// A reference to the [UserProjectCollectionReference] containing this document.
+  UserProjectCollectionReference get parent {
+    return _$UserProjectCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<UserProjectDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(UserProjectDocumentSnapshot._);
+  }
+
+  @override
+  Future<UserProjectDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(UserProjectDocumentSnapshot._);
+  }
+
+  @override
+  Future<UserProjectDocumentSnapshot> transactionGet(Transaction transaction) {
+    return transaction.get(reference).then(UserProjectDocumentSnapshot._);
+  }
+
+  Future<void> set(
+    UserProject model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) async {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    final castedReference = reference.withConverter<Map<String, dynamic>>(
+      fromFirestore: (snapshot, options) => throw UnimplementedError(),
+      toFirestore: (value, options) => value,
+    );
+    return castedReference.set(json, options);
+  }
+
+  void transactionSet(
+    Transaction transaction,
+    UserProject model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    transaction.set(reference, json, options);
+  }
+
+  void batchSet(
+    WriteBatch batch,
+    UserProject model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    batch.set(reference, json, options);
+  }
+
+  Future<void> update({
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) async {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$UserProjectFieldMap['objectId']!:
+            _$UserProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserProjectFieldMap['createdAt']!:
+            _$UserProjectPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$UserProjectFieldMap['updatedAt']!:
+            _$UserProjectPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$UserProjectFieldMap['userId']!:
+            _$UserProjectPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    return reference.update(json);
+  }
+
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$UserProjectFieldMap['objectId']!:
+            _$UserProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserProjectFieldMap['createdAt']!:
+            _$UserProjectPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$UserProjectFieldMap['updatedAt']!:
+            _$UserProjectPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$UserProjectFieldMap['userId']!:
+            _$UserProjectPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    transaction.update(reference, json);
+  }
+
+  void batchUpdate(
+    WriteBatch batch, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$UserProjectFieldMap['objectId']!:
+            _$UserProjectPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$UserProjectFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$UserProjectFieldMap['createdAt']!:
+            _$UserProjectPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$UserProjectFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$UserProjectFieldMap['updatedAt']!:
+            _$UserProjectPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$UserProjectFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$UserProjectFieldMap['userId']!:
+            _$UserProjectPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$UserProjectFieldMap['userId']!: userIdFieldValue,
+    };
+
+    batch.update(reference, json);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserProjectDocumentReference &&
+        other.runtimeType == runtimeType &&
+        other.parent == parent &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, parent, id);
+}
+
+abstract class UserProjectQuery
+    implements QueryReference<UserProject, UserProjectQuerySnapshot> {
+  @override
+  UserProjectQuery limit(int limit);
+
+  @override
+  UserProjectQuery limitToLast(int limit);
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  UserProjectQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserProjectQuery whereDocumentId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserProjectQuery whereObjectId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserProjectQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserProjectQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserProjectQuery whereUserId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  UserProjectQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object startAt,
+    Object startAfter,
+    Object endAt,
+    Object endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  UserProjectQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  UserProjectQuery orderByObjectId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  UserProjectQuery orderByCreatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  UserProjectQuery orderByUpdatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+
+  UserProjectQuery orderByUserId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  });
+}
+
+class _$UserProjectQuery
+    extends QueryReference<UserProject, UserProjectQuerySnapshot>
+    implements UserProjectQuery {
+  _$UserProjectQuery(
+    this._collection, {
+    required Query<UserProject> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
+
+  final CollectionReference<Object?> _collection;
+
+  @override
+  Stream<UserProjectQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference
+        .snapshots()
+        .map(UserProjectQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  Future<UserProjectQuerySnapshot> get([GetOptions? options]) {
+    return reference
+        .get(options)
+        .then(UserProjectQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  UserProjectQuery limit(int limit) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery limitToLast(int limit) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        fieldPath,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereDocumentId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        FieldPath.documentId,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereObjectId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserProjectFieldMap['objectId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.objectId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.objectId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserProjectPerFieldToJson.objectId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .objectId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserProjectPerFieldToJson.objectId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .objectId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserProjectPerFieldToJson.objectId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserProjectPerFieldToJson.objectId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereCreatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserProjectFieldMap['createdAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.createdAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.createdAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserProjectPerFieldToJson.createdAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .createdAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserProjectPerFieldToJson.createdAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .createdAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserProjectPerFieldToJson.createdAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserProjectPerFieldToJson.createdAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereUpdatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserProjectFieldMap['updatedAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.updatedAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.updatedAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserProjectPerFieldToJson.updatedAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .updatedAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserProjectPerFieldToJson.updatedAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .updatedAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserProjectPerFieldToJson.updatedAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserProjectPerFieldToJson.updatedAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery whereUserId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserProjectFieldMap['userId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.userId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserProjectPerFieldToJson.userId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserProjectPerFieldToJson.userId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson.userId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserProjectPerFieldToJson.userId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserProjectPerFieldToJson
+                .userId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserProjectPerFieldToJson.userId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserProjectPerFieldToJson.userId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByDocumentId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByObjectId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserProjectFieldMap['objectId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByCreatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserProjectFieldMap['createdAt']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByUpdatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserProjectFieldMap['updatedAt']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserProjectQuery orderByUserId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserProjectDocumentSnapshot? startAtDocument,
+    UserProjectDocumentSnapshot? endAtDocument,
+    UserProjectDocumentSnapshot? endBeforeDocument,
+    UserProjectDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserProjectFieldMap['userId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserProjectQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$UserProjectQuery &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+class UserProjectDocumentSnapshot
+    extends FirestoreDocumentSnapshot<UserProject> {
+  UserProjectDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<UserProject> snapshot;
+
+  @override
+  UserProjectDocumentReference get reference {
+    return UserProjectDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final UserProject? data;
+}
+
+class UserProjectQuerySnapshot extends FirestoreQuerySnapshot<UserProject,
+    UserProjectQueryDocumentSnapshot> {
+  UserProjectQuerySnapshot._(
+    this.snapshot,
+    this.docs,
+    this.docChanges,
+  );
+
+  factory UserProjectQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<UserProject> snapshot,
+  ) {
+    final docs = snapshot.docs.map(UserProjectQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        UserProjectDocumentSnapshot._,
+      );
+    }).toList();
+
+    return UserProjectQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<UserProjectDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    UserProjectDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+  ) {
+    return FirestoreDocumentChange<UserProjectDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
+
+  final QuerySnapshot<UserProject> snapshot;
+
+  @override
+  final List<UserProjectQueryDocumentSnapshot> docs;
+
+  @override
+  final List<FirestoreDocumentChange<UserProjectDocumentSnapshot>> docChanges;
+}
+
+class UserProjectQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<UserProject>
+    implements UserProjectDocumentSnapshot {
+  UserProjectQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final QueryDocumentSnapshot<UserProject> snapshot;
+
+  @override
+  final UserProject data;
+
+  @override
+  UserProjectDocumentReference get reference {
+    return UserProjectDocumentReference(snapshot.reference);
+  }
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -4097,4 +7733,108 @@ Map<String, dynamic> _$WorkStatusToJson(WorkStatus instance) =>
           const FirestoreDateTimeConverter().toJson(instance.updatedAt),
       'userId': instance.userId,
       'projectId': instance.projectId,
+    };
+
+Finance _$FinanceFromJson(Map<String, dynamic> json) => Finance(
+      id: json['id'] as String,
+      objectId: json['objectId'] as String,
+      updatedAt: const FirestoreDateTimeConverter()
+          .fromJson(json['updatedAt'] as Timestamp),
+      createdAt: const FirestoreDateTimeConverter()
+          .fromJson(json['createdAt'] as Timestamp),
+      userId: json['userId'] as String,
+      projectId: json['projectId'] as String,
+      workId: json['workId'] as String,
+      amount: (json['amount'] as num).toDouble(),
+    );
+
+const _$FinanceFieldMap = <String, String>{
+  'id': 'id',
+  'objectId': 'objectId',
+  'createdAt': 'createdAt',
+  'updatedAt': 'updatedAt',
+  'userId': 'userId',
+  'projectId': 'projectId',
+  'workId': 'workId',
+  'amount': 'amount',
+};
+
+// ignore: unused_element
+abstract class _$FinancePerFieldToJson {
+  // ignore: unused_element
+  static Object? id(String instance) => instance;
+  // ignore: unused_element
+  static Object? objectId(String instance) => instance;
+  // ignore: unused_element
+  static Object? createdAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? updatedAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? userId(String instance) => instance;
+  // ignore: unused_element
+  static Object? projectId(String instance) => instance;
+  // ignore: unused_element
+  static Object? workId(String instance) => instance;
+  // ignore: unused_element
+  static Object? amount(double instance) => instance;
+}
+
+Map<String, dynamic> _$FinanceToJson(Finance instance) => <String, dynamic>{
+      'id': instance.id,
+      'objectId': instance.objectId,
+      'createdAt':
+          const FirestoreDateTimeConverter().toJson(instance.createdAt),
+      'updatedAt':
+          const FirestoreDateTimeConverter().toJson(instance.updatedAt),
+      'userId': instance.userId,
+      'projectId': instance.projectId,
+      'workId': instance.workId,
+      'amount': instance.amount,
+    };
+
+UserProject _$UserProjectFromJson(Map<String, dynamic> json) => UserProject(
+      id: json['id'] as String,
+      objectId: json['objectId'] as String,
+      updatedAt: const FirestoreDateTimeConverter()
+          .fromJson(json['updatedAt'] as Timestamp),
+      createdAt: const FirestoreDateTimeConverter()
+          .fromJson(json['createdAt'] as Timestamp),
+      userId: json['userId'] as String,
+    );
+
+const _$UserProjectFieldMap = <String, String>{
+  'id': 'id',
+  'objectId': 'objectId',
+  'createdAt': 'createdAt',
+  'updatedAt': 'updatedAt',
+  'userId': 'userId',
+};
+
+// ignore: unused_element
+abstract class _$UserProjectPerFieldToJson {
+  // ignore: unused_element
+  static Object? id(String instance) => instance;
+  // ignore: unused_element
+  static Object? objectId(String instance) => instance;
+  // ignore: unused_element
+  static Object? createdAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? updatedAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? userId(String instance) => instance;
+}
+
+Map<String, dynamic> _$UserProjectToJson(UserProject instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'objectId': instance.objectId,
+      'createdAt':
+          const FirestoreDateTimeConverter().toJson(instance.createdAt),
+      'updatedAt':
+          const FirestoreDateTimeConverter().toJson(instance.updatedAt),
+      'userId': instance.userId,
     };

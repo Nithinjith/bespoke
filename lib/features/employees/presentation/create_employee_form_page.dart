@@ -3,6 +3,7 @@ import 'package:bespoke/features/employees/data/entities/user_model.dart';
 import 'package:bespoke/features/employees/presentation/project_selection_bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -27,6 +28,29 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(isUpdate ? 'Update User' : 'Create User'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.contacts),
+            tooltip: 'Choose Contact',
+            onPressed: () async {
+              var permissionStatus = await FlutterContacts.requestPermission();
+              if (permissionStatus) {
+                final contact = await FlutterContacts.openExternalPick();
+                if (contact != null) {
+                  // Handle selected contact
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Selected: ${contact.displayName}  ${contact.phones}')),
+                  );
+                  debugPrint('Selected: ${contact.displayName}  ${contact.phones}');
+                }
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Don\'t have permission to access contact')),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

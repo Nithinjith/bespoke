@@ -19,6 +19,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ProjectFormRoute.page,path: '/create_update_projects'),
     AutoRoute(page: EmployeeListRoute.page,path: '/employee_list'),
     AutoRoute(page: CreateEmployeeFormRoute.page,path: '/create_employee'),
+    AutoRoute(page: EmployeeDetailRoute.page,path: '/employee_detail'),
   ];
 }
 class AuthGuard extends AutoRouteGuard {

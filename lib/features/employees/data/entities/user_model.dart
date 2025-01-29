@@ -64,7 +64,62 @@ class WorkStatus{
 
   Map<String, dynamic> toJson() => _$WorkStatusToJson(this);
 }
+@firestoreSerializable
+class Finance{
+  Finance({
+    required this.id,
+    required this.objectId,
+    required this.updatedAt,
+    required this.createdAt,
+    required this.userId,
+    required this.projectId,
+    required this.workId,
+    required this.amount
+
+  });
+
+  @Id()
+  final String id;
+  final String objectId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String userId;
+  final String projectId;
+  final String workId;
+  final double amount;
+
+  factory Finance.fromJson(Map<String, dynamic> json) {
+    return _$FinanceFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$FinanceToJson(this);
+}
+@firestoreSerializable
+class UserProject{
+  UserProject({
+    required this.id,
+    required this.objectId,
+    required this.updatedAt,
+    required this.createdAt,
+    required this.userId,
+  });
+
+  @Id()
+  final String id;
+  final String objectId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String userId;
+
+  factory UserProject.fromJson(Map<String, dynamic> json) {
+    return _$UserProjectFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$UserProjectToJson(this);
+}
 
 @Collection<User>('users')
 @Collection<WorkStatus>('users/*/work_status')
+@Collection<Finance>('users/*/finance')
+@Collection<UserProject>('users/*/user_projects')
 final userRef = UserCollectionReference();
