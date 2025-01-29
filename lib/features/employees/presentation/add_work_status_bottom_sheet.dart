@@ -1,6 +1,5 @@
-import 'package:bespoke/features/home/data/entities/project_model.dart';
+import 'package:bespoke/features/employee_details/presentation/add_finance_bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -92,37 +91,30 @@ class AddWorkStatusBottomSheet extends ConsumerWidget {
               const SizedBox(height: 16),
 
               // Project Selection List
+
               Expanded(
-                child: FirestoreBuilder<ProjectQuerySnapshot>(
-                  ref: projectRef.orderByCreatedAt(),
-                  builder: (context, snapshot, _) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-
-                    final projects = snapshot.data?.docs ?? [];
-
-                    return ListView.builder(
-                      controller: scrollController,
-                      itemCount: projects.length,
-                      itemBuilder: (context, index) {
-                        final project = projects[index].data;
-                        return RadioListTile<String>(
-                          title: Text(project.name),
-                          value: projects[index].id,
-                          groupValue: selectedProjectId,
-                          onChanged: (value) {
-                            selectedProjectId = value;
+                child: ref.watch(associatedProjectProvider(employeeId)).when(
+                      data: (data) {
+                        return ListView.builder(
+                          controller: scrollController,
+                          itemCount: data!.length,
+                          itemBuilder: (context, index) {
+                            final project = data[index];
+                            return RadioListTile<String>(
+                              title: Text(project.name),
+                              value: project.id,
+                              groupValue: selectedProjectId,
+                              onChanged: (value) {
+                                selectedProjectId = value;
+                              },
+                            );
                           },
                         );
                       },
-                    );
-                  },
-                ),
+                      error: (error, stackTrace) =>
+                          Center(child: Text('Unable to load Projects')),
+                      loading: () => Center(child: CircularProgressIndicator()),
+                    ),
               ),
 
               // Submit Button
@@ -141,7 +133,7 @@ class AddWorkStatusBottomSheet extends ConsumerWidget {
                     final workStatusDoc = FirebaseFirestore.instance
                         .collection('employees')
                         .doc(employeeId)
-                        .collection('workStatus')
+                        .collection('work_status')
                         .doc();
 
                     await workStatusDoc.set({
@@ -153,7 +145,8 @@ class AddWorkStatusBottomSheet extends ConsumerWidget {
 
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Work logged successfully!')),
+                      const SnackBar(
+                          content: Text('Work logged successfully!')),
                     );
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
