@@ -29,7 +29,7 @@ class BeSpokeHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(10.0),
           child:  FirebaseAuth.instance.currentUser?.photoURL != null ? CircleAvatar(
             backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),
-          ):ProfilePicture(name: FirebaseAuth.instance.currentUser!.displayName!, radius: 28, fontsize: 18),
+          ):ProfilePicture(name: FirebaseAuth.instance.currentUser!.email!, radius: 28, fontsize: 18),
         ),
       ),
       actions: [

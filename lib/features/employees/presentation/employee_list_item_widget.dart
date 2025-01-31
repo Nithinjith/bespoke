@@ -81,7 +81,7 @@ class EmployeeListItem extends StatelessWidget {
     );
   }Widget _buildContactItemForEmail(BuildContext context, IconData icon, String text) {
     return  Container(
-      constraints: const BoxConstraints(maxWidth:230), // Example constraint to control width
+      constraints: const BoxConstraints(maxWidth:220), // Example constraint to control width
       child: Column(
         children: [
           Padding(

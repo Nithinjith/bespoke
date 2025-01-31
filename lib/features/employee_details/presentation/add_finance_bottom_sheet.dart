@@ -53,7 +53,9 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
   final _formKey = GlobalKey<FormState>();
   DateTime? _selectedDate;
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   String? _selectedProject;
+  String? _selectedStatus;
 
   void _pickDate() async {
     DateTime? picked = await showDatePicker(
@@ -80,31 +82,24 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
       print('Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}');
       print('Amount: ${_amountController.text}');
       print('Project: $_selectedProject');
+      print('Status: $_selectedStatus');
+      print('Description: ${_descriptionController.text}');
 
-      FirebaseFirestore.instance
+      var financeCollection =   FirebaseFirestore.instance
           .collection('users')
           .doc(widget.employeeId)
-          .collection('finance')
-          .add({
+          .collection('finance');
+
+      var result = await financeCollection.add({
         "updatedAt": FieldValue.serverTimestamp(),
         "createdAt": FieldValue.serverTimestamp(),
         "userId": widget.employeeId,
         "projectId": _selectedProject,
-        "amount": double.parse(_amountController.text)
+        "amount": double.parse(_amountController.text),
+        "status": _selectedStatus,
+        "description": _descriptionController.text.trim(),
       });
-
-      // userRef
-      //     .doc(widget.employeeId)
-      //     .finance
-      //     .add(Finance(id: '',
-      //     objectId: '',
-      //     updatedAt: FieldValue.serverTimestamp(),
-      //     createdAt: FieldValue.serverTimestamp(),
-      //     userId: widget.employeeId,
-      //     projectId: _selectedProject,
-      //     workId: 'workId',
-      //     amount: double.parse(_amountController.text)));
-
+      await financeCollection.doc(result.id).update({'objectId': result.id});
       Navigator.pop(context); // Close the bottom sheet
     }
   }
@@ -145,6 +140,8 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
                       onTap: _pickDate,
                     ),
 
+                    SizedBox(height: 16),
+
                     // Amount Input
                     TextFormField(
                       controller: _amountController,
@@ -167,6 +164,39 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
                     // Project Dropdown
                     buildDropdownButtonFormField(widget.employeeId),
 
+                    SizedBox(height: 16),
+
+                    // Status Dropdown
+                    DropdownButtonFormField<String>(
+                      value: _selectedStatus,
+                      decoration: InputDecoration(
+                        labelText: 'Transaction Type',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: ['Debit', 'Credit'].map((status) {
+                        return DropdownMenuItem(
+                          value: status,
+                          child: Text(status),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() => _selectedStatus = value),
+                      validator: (value) =>
+                      value == null ? 'Select a transaction type' : null,
+                    ),
+
+                    SizedBox(height: 16),
+
+                    // Description (Multi-line Text Input)
+                    TextFormField(
+                      controller: _descriptionController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        labelText: 'Description (Optional)',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+
                     SizedBox(height: 24),
 
                     // Submit Button
@@ -174,7 +204,7 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
                       onPressed: _submit,
                       style: ElevatedButton.styleFrom(
                         minimumSize:
-                            Size(double.infinity, 50), // Full-width button
+                        Size(double.infinity, 50), // Full-width button
                       ),
                       child: Text('Submit'),
                     ),
@@ -190,31 +220,32 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
 
   Widget buildDropdownButtonFormField(String employeeId) {
     return ref.watch(associatedProjectProvider(employeeId)).when(
-          data: (data) {
-            var projectNameList = data!
-                .map(
-                  (e) => e.name,
-                )
-                .toList();
-            return DropdownButtonFormField<String>(
-              value: _selectedProject,
-              decoration: InputDecoration(
-                labelText: 'Select Project',
-                border: OutlineInputBorder(),
-              ),
-              items: projectNameList.map((project) {
-                return DropdownMenuItem(
-                  value: project,
-                  child: Text(project),
-                );
-              }).toList(),
-              onChanged: (value) => setState(() => _selectedProject = value),
-              validator: (value) => value == null ? 'Select a project' : null,
+      data: (data) {
+        var projectNameList = data!
+            .map(
+              (e) => e.name,
+        )
+            .toList();
+        return DropdownButtonFormField<String>(
+          value: _selectedProject,
+          decoration: InputDecoration(
+            labelText: 'Select Project',
+            border: OutlineInputBorder(),
+          ),
+          items: projectNameList.map((project) {
+            return DropdownMenuItem(
+              value: project,
+              child: Text(project),
             );
-          },
-          error: (error, stackTrace) =>
-              Center(child: Text('Unable to load projects')),
-          loading: () => Center(child: CircularProgressIndicator()),
+          }).toList(),
+          onChanged: (value) => setState(() => _selectedProject = value),
+          validator: (value) => value == null ? 'Select a project' : null,
         );
+      },
+      error: (error, stackTrace) =>
+          Center(child: Text('Unable to load projects')),
+      loading: () => Center(child: CircularProgressIndicator()),
+    );
   }
 }
+

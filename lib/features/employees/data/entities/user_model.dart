@@ -65,16 +65,16 @@ class WorkStatus{
   Map<String, dynamic> toJson() => _$WorkStatusToJson(this);
 }
 @firestoreSerializable
-class Finance{
-  Finance({
+class UserFinance{
+  UserFinance(  this.description,{
     required this.id,
     required this.objectId,
     required this.updatedAt,
     required this.createdAt,
     required this.userId,
     required this.projectId,
-    required this.amount
-
+    required this.amount,
+    required this.status,
   });
 
   @Id()
@@ -85,12 +85,14 @@ class Finance{
   final String userId;
   final String projectId;
   final double amount;
+  final String status;
+  final String? description;
 
-  factory Finance.fromJson(Map<String, dynamic> json) {
-    return _$FinanceFromJson(json);
+  factory UserFinance.fromJson(Map<String, dynamic> json) {
+    return _$UserFinanceFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$FinanceToJson(this);
+  Map<String, dynamic> toJson() => _$UserFinanceToJson(this);
 }
 @firestoreSerializable
 class UserProject{
@@ -141,7 +143,7 @@ class AssociatedUser{
 
 @Collection<User>('users')
 @Collection<WorkStatus>('users/*/work_status')
-@Collection<Finance>('users/*/finance')
+@Collection<UserFinance>('users/*/finance')
 @Collection<UserProject>('users/*/user_projects')
 @Collection<AssociatedUser>('users/*/associated_users')
 final userRef = UserCollectionReference();

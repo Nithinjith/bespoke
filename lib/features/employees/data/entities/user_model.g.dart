@@ -120,7 +120,8 @@ abstract class UserDocumentReference
     reference,
   );
 
-  late final FinanceCollectionReference finance = _$FinanceCollectionReference(
+  late final UserFinanceCollectionReference finance =
+      _$UserFinanceCollectionReference(
     reference,
   );
 
@@ -276,7 +277,8 @@ class _$UserDocumentReference
     reference,
   );
 
-  late final FinanceCollectionReference finance = _$FinanceCollectionReference(
+  late final UserFinanceCollectionReference finance =
+      _$UserFinanceCollectionReference(
     reference,
   );
 
@@ -4010,59 +4012,59 @@ class WorkStatusQueryDocumentSnapshot
 /// A collection reference object can be used for adding documents,
 /// getting document references, and querying for documents
 /// (using the methods inherited from Query).
-abstract class FinanceCollectionReference
+abstract class UserFinanceCollectionReference
     implements
-        FinanceQuery,
-        FirestoreCollectionReference<Finance, FinanceQuerySnapshot> {
-  factory FinanceCollectionReference(
+        UserFinanceQuery,
+        FirestoreCollectionReference<UserFinance, UserFinanceQuerySnapshot> {
+  factory UserFinanceCollectionReference(
     DocumentReference<User> parent,
-  ) = _$FinanceCollectionReference;
+  ) = _$UserFinanceCollectionReference;
 
-  static Finance fromFirestore(
+  static UserFinance fromFirestore(
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return Finance.fromJson({'id': snapshot.id, ...?snapshot.data()});
+    return UserFinance.fromJson({'id': snapshot.id, ...?snapshot.data()});
   }
 
   static Map<String, Object?> toFirestore(
-    Finance value,
+    UserFinance value,
     SetOptions? options,
   ) {
     return {...value.toJson()}..remove('id');
   }
 
   @override
-  CollectionReference<Finance> get reference;
+  CollectionReference<UserFinance> get reference;
 
   /// A reference to the containing [UserDocumentReference] if this is a subcollection.
   UserDocumentReference get parent;
 
   @override
-  FinanceDocumentReference doc([String? id]);
+  UserFinanceDocumentReference doc([String? id]);
 
   /// Add a new document to this collection with the specified data,
   /// assigning it a document ID automatically.
-  Future<FinanceDocumentReference> add(Finance value);
+  Future<UserFinanceDocumentReference> add(UserFinance value);
 }
 
-class _$FinanceCollectionReference extends _$FinanceQuery
-    implements FinanceCollectionReference {
-  factory _$FinanceCollectionReference(
+class _$UserFinanceCollectionReference extends _$UserFinanceQuery
+    implements UserFinanceCollectionReference {
+  factory _$UserFinanceCollectionReference(
     DocumentReference<User> parent,
   ) {
-    return _$FinanceCollectionReference._(
+    return _$UserFinanceCollectionReference._(
       UserDocumentReference(parent),
       parent.collection('finance').withConverter(
-            fromFirestore: FinanceCollectionReference.fromFirestore,
-            toFirestore: FinanceCollectionReference.toFirestore,
+            fromFirestore: UserFinanceCollectionReference.fromFirestore,
+            toFirestore: UserFinanceCollectionReference.toFirestore,
           ),
     );
   }
 
-  _$FinanceCollectionReference._(
+  _$UserFinanceCollectionReference._(
     this.parent,
-    CollectionReference<Finance> reference,
+    CollectionReference<UserFinance> reference,
   ) : super(reference, $referenceWithoutCursor: reference);
 
   @override
@@ -4071,28 +4073,30 @@ class _$FinanceCollectionReference extends _$FinanceQuery
   String get path => reference.path;
 
   @override
-  CollectionReference<Finance> get reference =>
-      super.reference as CollectionReference<Finance>;
+  CollectionReference<UserFinance> get reference =>
+      super.reference as CollectionReference<UserFinance>;
 
   @override
-  FinanceDocumentReference doc([String? id]) {
+  UserFinanceDocumentReference doc([String? id]) {
     assert(
       id == null || id.split('/').length == 1,
       'The document ID cannot be from a different collection',
     );
-    return FinanceDocumentReference(
+    return UserFinanceDocumentReference(
       reference.doc(id),
     );
   }
 
   @override
-  Future<FinanceDocumentReference> add(Finance value) {
-    return reference.add(value).then((ref) => FinanceDocumentReference(ref));
+  Future<UserFinanceDocumentReference> add(UserFinance value) {
+    return reference
+        .add(value)
+        .then((ref) => UserFinanceDocumentReference(ref));
   }
 
   @override
   bool operator ==(Object other) {
-    return other is _$FinanceCollectionReference &&
+    return other is _$UserFinanceCollectionReference &&
         other.runtimeType == runtimeType &&
         other.reference == reference;
   }
@@ -4101,16 +4105,17 @@ class _$FinanceCollectionReference extends _$FinanceQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-abstract class FinanceDocumentReference
-    extends FirestoreDocumentReference<Finance, FinanceDocumentSnapshot> {
-  factory FinanceDocumentReference(DocumentReference<Finance> reference) =
-      _$FinanceDocumentReference;
+abstract class UserFinanceDocumentReference extends FirestoreDocumentReference<
+    UserFinance, UserFinanceDocumentSnapshot> {
+  factory UserFinanceDocumentReference(
+          DocumentReference<UserFinance> reference) =
+      _$UserFinanceDocumentReference;
 
-  DocumentReference<Finance> get reference;
+  DocumentReference<UserFinance> get reference;
 
-  /// A reference to the [FinanceCollectionReference] containing this document.
-  FinanceCollectionReference get parent {
-    return _$FinanceCollectionReference(
+  /// A reference to the [UserFinanceCollectionReference] containing this document.
+  UserFinanceCollectionReference get parent {
+    return _$UserFinanceCollectionReference(
       reference.parent.parent!.withConverter<User>(
         fromFirestore: UserCollectionReference.fromFirestore,
         toFirestore: UserCollectionReference.toFirestore,
@@ -4119,10 +4124,10 @@ abstract class FinanceDocumentReference
   }
 
   @override
-  Stream<FinanceDocumentSnapshot> snapshots();
+  Stream<UserFinanceDocumentSnapshot> snapshots();
 
   @override
-  Future<FinanceDocumentSnapshot> get([GetOptions? options]);
+  Future<UserFinanceDocumentSnapshot> get([GetOptions? options]);
 
   @override
   Future<void> delete();
@@ -4136,7 +4141,7 @@ abstract class FinanceDocumentReference
   /// Any [FieldValue]s provided will replace the corresponding fields in the
   /// [model] during serialization.
   Future<void> set(
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
     FieldValue createdAtFieldValue,
@@ -4144,6 +4149,8 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
     FieldValue amountFieldValue,
+    FieldValue statusFieldValue,
+    FieldValue descriptionFieldValue,
   });
 
   /// Writes to the document using the transaction API.
@@ -4155,7 +4162,7 @@ abstract class FinanceDocumentReference
   /// [model] during serialization.
   void transactionSet(
     Transaction transaction,
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
     FieldValue createdAtFieldValue,
@@ -4163,6 +4170,8 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
     FieldValue amountFieldValue,
+    FieldValue statusFieldValue,
+    FieldValue descriptionFieldValue,
   });
 
   /// Writes to the document using the batch API.
@@ -4174,7 +4183,7 @@ abstract class FinanceDocumentReference
   /// [model] during serialization.
   void batchSet(
     WriteBatch batch,
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue objectIdFieldValue,
     FieldValue createdAtFieldValue,
@@ -4182,6 +4191,8 @@ abstract class FinanceDocumentReference
     FieldValue userIdFieldValue,
     FieldValue projectIdFieldValue,
     FieldValue amountFieldValue,
+    FieldValue statusFieldValue,
+    FieldValue descriptionFieldValue,
   });
 
   /// Updates data on the document. Data will be merged with any existing
@@ -4201,6 +4212,10 @@ abstract class FinanceDocumentReference
     FieldValue projectIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
+    String status,
+    FieldValue statusFieldValue,
+    String? description,
+    FieldValue descriptionFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -4220,6 +4235,10 @@ abstract class FinanceDocumentReference
     FieldValue projectIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
+    String status,
+    FieldValue statusFieldValue,
+    String? description,
+    FieldValue descriptionFieldValue,
   });
 
   /// Updates fields in the current document using the batch API.
@@ -4239,20 +4258,24 @@ abstract class FinanceDocumentReference
     FieldValue projectIdFieldValue,
     double amount,
     FieldValue amountFieldValue,
+    String status,
+    FieldValue statusFieldValue,
+    String? description,
+    FieldValue descriptionFieldValue,
   });
 }
 
-class _$FinanceDocumentReference
-    extends FirestoreDocumentReference<Finance, FinanceDocumentSnapshot>
-    implements FinanceDocumentReference {
-  _$FinanceDocumentReference(this.reference);
+class _$UserFinanceDocumentReference
+    extends FirestoreDocumentReference<UserFinance, UserFinanceDocumentSnapshot>
+    implements UserFinanceDocumentReference {
+  _$UserFinanceDocumentReference(this.reference);
 
   @override
-  final DocumentReference<Finance> reference;
+  final DocumentReference<UserFinance> reference;
 
-  /// A reference to the [FinanceCollectionReference] containing this document.
-  FinanceCollectionReference get parent {
-    return _$FinanceCollectionReference(
+  /// A reference to the [UserFinanceCollectionReference] containing this document.
+  UserFinanceCollectionReference get parent {
+    return _$UserFinanceCollectionReference(
       reference.parent.parent!.withConverter<User>(
         fromFirestore: UserCollectionReference.fromFirestore,
         toFirestore: UserCollectionReference.toFirestore,
@@ -4261,22 +4284,22 @@ class _$FinanceDocumentReference
   }
 
   @override
-  Stream<FinanceDocumentSnapshot> snapshots() {
-    return reference.snapshots().map(FinanceDocumentSnapshot._);
+  Stream<UserFinanceDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(UserFinanceDocumentSnapshot._);
   }
 
   @override
-  Future<FinanceDocumentSnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(FinanceDocumentSnapshot._);
+  Future<UserFinanceDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(UserFinanceDocumentSnapshot._);
   }
 
   @override
-  Future<FinanceDocumentSnapshot> transactionGet(Transaction transaction) {
-    return transaction.get(reference).then(FinanceDocumentSnapshot._);
+  Future<UserFinanceDocumentSnapshot> transactionGet(Transaction transaction) {
+    return transaction.get(reference).then(UserFinanceDocumentSnapshot._);
   }
 
   Future<void> set(
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
     FieldValue? createdAtFieldValue,
@@ -4284,21 +4307,27 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
     FieldValue? amountFieldValue,
+    FieldValue? statusFieldValue,
+    FieldValue? descriptionFieldValue,
   }) async {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     final castedReference = reference.withConverter<Map<String, dynamic>>(
@@ -4310,7 +4339,7 @@ class _$FinanceDocumentReference
 
   void transactionSet(
     Transaction transaction,
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
     FieldValue? createdAtFieldValue,
@@ -4318,21 +4347,27 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
     FieldValue? amountFieldValue,
+    FieldValue? statusFieldValue,
+    FieldValue? descriptionFieldValue,
   }) {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     transaction.set(reference, json, options);
@@ -4340,7 +4375,7 @@ class _$FinanceDocumentReference
 
   void batchSet(
     WriteBatch batch,
-    Finance model, {
+    UserFinance model, {
     SetOptions? options,
     FieldValue? objectIdFieldValue,
     FieldValue? createdAtFieldValue,
@@ -4348,21 +4383,27 @@ class _$FinanceDocumentReference
     FieldValue? userIdFieldValue,
     FieldValue? projectIdFieldValue,
     FieldValue? amountFieldValue,
+    FieldValue? statusFieldValue,
+    FieldValue? descriptionFieldValue,
   }) {
     final json = {
       ...model.toJson(),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     batch.set(reference, json, options);
@@ -4381,6 +4422,10 @@ class _$FinanceDocumentReference
     FieldValue? projectIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
+    Object? status = _sentinel,
+    FieldValue? statusFieldValue,
+    Object? description = _sentinel,
+    FieldValue? descriptionFieldValue,
   }) async {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
@@ -4406,37 +4451,55 @@ class _$FinanceDocumentReference
       amount == _sentinel || amountFieldValue == null,
       "Cannot specify both amount and amountFieldValue",
     );
+    assert(
+      status == _sentinel || statusFieldValue == null,
+      "Cannot specify both status and statusFieldValue",
+    );
+    assert(
+      description == _sentinel || descriptionFieldValue == null,
+      "Cannot specify both description and descriptionFieldValue",
+    );
     final json = {
       if (objectId != _sentinel)
-        _$FinanceFieldMap['objectId']!:
-            _$FinancePerFieldToJson.objectId(objectId as String),
+        _$UserFinanceFieldMap['objectId']!:
+            _$UserFinancePerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAt != _sentinel)
-        _$FinanceFieldMap['createdAt']!:
-            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+        _$UserFinanceFieldMap['createdAt']!:
+            _$UserFinancePerFieldToJson.createdAt(createdAt as DateTime),
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
-        _$FinanceFieldMap['updatedAt']!:
-            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+        _$UserFinanceFieldMap['updatedAt']!:
+            _$UserFinancePerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userId != _sentinel)
-        _$FinanceFieldMap['userId']!:
-            _$FinancePerFieldToJson.userId(userId as String),
+        _$UserFinanceFieldMap['userId']!:
+            _$UserFinancePerFieldToJson.userId(userId as String),
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectId != _sentinel)
-        _$FinanceFieldMap['projectId']!:
-            _$FinancePerFieldToJson.projectId(projectId as String),
+        _$UserFinanceFieldMap['projectId']!:
+            _$UserFinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amount != _sentinel)
-        _$FinanceFieldMap['amount']!:
-            _$FinancePerFieldToJson.amount(amount as double),
+        _$UserFinanceFieldMap['amount']!:
+            _$UserFinancePerFieldToJson.amount(amount as double),
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (status != _sentinel)
+        _$UserFinanceFieldMap['status']!:
+            _$UserFinancePerFieldToJson.status(status as String),
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (description != _sentinel)
+        _$UserFinanceFieldMap['description']!:
+            _$UserFinancePerFieldToJson.description(description as String?),
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     return reference.update(json);
@@ -4456,6 +4519,10 @@ class _$FinanceDocumentReference
     FieldValue? projectIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
+    Object? status = _sentinel,
+    FieldValue? statusFieldValue,
+    Object? description = _sentinel,
+    FieldValue? descriptionFieldValue,
   }) {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
@@ -4481,37 +4548,55 @@ class _$FinanceDocumentReference
       amount == _sentinel || amountFieldValue == null,
       "Cannot specify both amount and amountFieldValue",
     );
+    assert(
+      status == _sentinel || statusFieldValue == null,
+      "Cannot specify both status and statusFieldValue",
+    );
+    assert(
+      description == _sentinel || descriptionFieldValue == null,
+      "Cannot specify both description and descriptionFieldValue",
+    );
     final json = {
       if (objectId != _sentinel)
-        _$FinanceFieldMap['objectId']!:
-            _$FinancePerFieldToJson.objectId(objectId as String),
+        _$UserFinanceFieldMap['objectId']!:
+            _$UserFinancePerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAt != _sentinel)
-        _$FinanceFieldMap['createdAt']!:
-            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+        _$UserFinanceFieldMap['createdAt']!:
+            _$UserFinancePerFieldToJson.createdAt(createdAt as DateTime),
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
-        _$FinanceFieldMap['updatedAt']!:
-            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+        _$UserFinanceFieldMap['updatedAt']!:
+            _$UserFinancePerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userId != _sentinel)
-        _$FinanceFieldMap['userId']!:
-            _$FinancePerFieldToJson.userId(userId as String),
+        _$UserFinanceFieldMap['userId']!:
+            _$UserFinancePerFieldToJson.userId(userId as String),
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectId != _sentinel)
-        _$FinanceFieldMap['projectId']!:
-            _$FinancePerFieldToJson.projectId(projectId as String),
+        _$UserFinanceFieldMap['projectId']!:
+            _$UserFinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amount != _sentinel)
-        _$FinanceFieldMap['amount']!:
-            _$FinancePerFieldToJson.amount(amount as double),
+        _$UserFinanceFieldMap['amount']!:
+            _$UserFinancePerFieldToJson.amount(amount as double),
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (status != _sentinel)
+        _$UserFinanceFieldMap['status']!:
+            _$UserFinancePerFieldToJson.status(status as String),
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (description != _sentinel)
+        _$UserFinanceFieldMap['description']!:
+            _$UserFinancePerFieldToJson.description(description as String?),
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     transaction.update(reference, json);
@@ -4531,6 +4616,10 @@ class _$FinanceDocumentReference
     FieldValue? projectIdFieldValue,
     Object? amount = _sentinel,
     FieldValue? amountFieldValue,
+    Object? status = _sentinel,
+    FieldValue? statusFieldValue,
+    Object? description = _sentinel,
+    FieldValue? descriptionFieldValue,
   }) {
     assert(
       objectId == _sentinel || objectIdFieldValue == null,
@@ -4556,37 +4645,55 @@ class _$FinanceDocumentReference
       amount == _sentinel || amountFieldValue == null,
       "Cannot specify both amount and amountFieldValue",
     );
+    assert(
+      status == _sentinel || statusFieldValue == null,
+      "Cannot specify both status and statusFieldValue",
+    );
+    assert(
+      description == _sentinel || descriptionFieldValue == null,
+      "Cannot specify both description and descriptionFieldValue",
+    );
     final json = {
       if (objectId != _sentinel)
-        _$FinanceFieldMap['objectId']!:
-            _$FinancePerFieldToJson.objectId(objectId as String),
+        _$UserFinanceFieldMap['objectId']!:
+            _$UserFinancePerFieldToJson.objectId(objectId as String),
       if (objectIdFieldValue != null)
-        _$FinanceFieldMap['objectId']!: objectIdFieldValue,
+        _$UserFinanceFieldMap['objectId']!: objectIdFieldValue,
       if (createdAt != _sentinel)
-        _$FinanceFieldMap['createdAt']!:
-            _$FinancePerFieldToJson.createdAt(createdAt as DateTime),
+        _$UserFinanceFieldMap['createdAt']!:
+            _$UserFinancePerFieldToJson.createdAt(createdAt as DateTime),
       if (createdAtFieldValue != null)
-        _$FinanceFieldMap['createdAt']!: createdAtFieldValue,
+        _$UserFinanceFieldMap['createdAt']!: createdAtFieldValue,
       if (updatedAt != _sentinel)
-        _$FinanceFieldMap['updatedAt']!:
-            _$FinancePerFieldToJson.updatedAt(updatedAt as DateTime),
+        _$UserFinanceFieldMap['updatedAt']!:
+            _$UserFinancePerFieldToJson.updatedAt(updatedAt as DateTime),
       if (updatedAtFieldValue != null)
-        _$FinanceFieldMap['updatedAt']!: updatedAtFieldValue,
+        _$UserFinanceFieldMap['updatedAt']!: updatedAtFieldValue,
       if (userId != _sentinel)
-        _$FinanceFieldMap['userId']!:
-            _$FinancePerFieldToJson.userId(userId as String),
+        _$UserFinanceFieldMap['userId']!:
+            _$UserFinancePerFieldToJson.userId(userId as String),
       if (userIdFieldValue != null)
-        _$FinanceFieldMap['userId']!: userIdFieldValue,
+        _$UserFinanceFieldMap['userId']!: userIdFieldValue,
       if (projectId != _sentinel)
-        _$FinanceFieldMap['projectId']!:
-            _$FinancePerFieldToJson.projectId(projectId as String),
+        _$UserFinanceFieldMap['projectId']!:
+            _$UserFinancePerFieldToJson.projectId(projectId as String),
       if (projectIdFieldValue != null)
-        _$FinanceFieldMap['projectId']!: projectIdFieldValue,
+        _$UserFinanceFieldMap['projectId']!: projectIdFieldValue,
       if (amount != _sentinel)
-        _$FinanceFieldMap['amount']!:
-            _$FinancePerFieldToJson.amount(amount as double),
+        _$UserFinanceFieldMap['amount']!:
+            _$UserFinancePerFieldToJson.amount(amount as double),
       if (amountFieldValue != null)
-        _$FinanceFieldMap['amount']!: amountFieldValue,
+        _$UserFinanceFieldMap['amount']!: amountFieldValue,
+      if (status != _sentinel)
+        _$UserFinanceFieldMap['status']!:
+            _$UserFinancePerFieldToJson.status(status as String),
+      if (statusFieldValue != null)
+        _$UserFinanceFieldMap['status']!: statusFieldValue,
+      if (description != _sentinel)
+        _$UserFinanceFieldMap['description']!:
+            _$UserFinancePerFieldToJson.description(description as String?),
+      if (descriptionFieldValue != null)
+        _$UserFinanceFieldMap['description']!: descriptionFieldValue,
     };
 
     batch.update(reference, json);
@@ -4594,7 +4701,7 @@ class _$FinanceDocumentReference
 
   @override
   bool operator ==(Object other) {
-    return other is FinanceDocumentReference &&
+    return other is UserFinanceDocumentReference &&
         other.runtimeType == runtimeType &&
         other.parent == parent &&
         other.id == id;
@@ -4604,13 +4711,13 @@ class _$FinanceDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-abstract class FinanceQuery
-    implements QueryReference<Finance, FinanceQuerySnapshot> {
+abstract class UserFinanceQuery
+    implements QueryReference<UserFinance, UserFinanceQuerySnapshot> {
   @override
-  FinanceQuery limit(int limit);
+  UserFinanceQuery limit(int limit);
 
   @override
-  FinanceQuery limitToLast(int limit);
+  UserFinanceQuery limitToLast(int limit);
 
   /// Perform a where query based on a [FieldPath].
   ///
@@ -4629,7 +4736,7 @@ abstract class FinanceQuery
   /// ```dart
   /// collection.whereTitle(isEqualTo: 'title');
   /// ```
-  FinanceQuery whereFieldPath(
+  UserFinanceQuery whereFieldPath(
     Object fieldPath, {
     Object? isEqualTo,
     Object? isNotEqualTo,
@@ -4644,7 +4751,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereDocumentId({
+  UserFinanceQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -4656,7 +4763,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereObjectId({
+  UserFinanceQuery whereObjectId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -4668,7 +4775,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereCreatedAt({
+  UserFinanceQuery whereCreatedAt({
     DateTime? isEqualTo,
     DateTime? isNotEqualTo,
     DateTime? isLessThan,
@@ -4680,7 +4787,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereUpdatedAt({
+  UserFinanceQuery whereUpdatedAt({
     DateTime? isEqualTo,
     DateTime? isNotEqualTo,
     DateTime? isLessThan,
@@ -4692,7 +4799,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereUserId({
+  UserFinanceQuery whereUserId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -4704,7 +4811,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereProjectId({
+  UserFinanceQuery whereProjectId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -4716,7 +4823,7 @@ abstract class FinanceQuery
     bool? isNull,
   });
 
-  FinanceQuery whereAmount({
+  UserFinanceQuery whereAmount({
     double? isEqualTo,
     double? isNotEqualTo,
     double? isLessThan,
@@ -4725,6 +4832,30 @@ abstract class FinanceQuery
     double? isGreaterThanOrEqualTo,
     List<double>? whereIn,
     List<double>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserFinanceQuery whereStatus({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  UserFinanceQuery whereDescription({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
     bool? isNull,
   });
 
@@ -4748,109 +4879,134 @@ abstract class FinanceQuery
   /// ```dart
   /// collection.orderByTitle(startAt: 'title');
   /// ```
-  FinanceQuery orderByFieldPath(
+  UserFinanceQuery orderByFieldPath(
     Object fieldPath, {
     bool descending = false,
     Object startAt,
     Object startAfter,
     Object endAt,
     Object endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByDocumentId({
+  UserFinanceQuery orderByDocumentId({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByObjectId({
+  UserFinanceQuery orderByObjectId({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByCreatedAt({
+  UserFinanceQuery orderByCreatedAt({
     bool descending = false,
     DateTime startAt,
     DateTime startAfter,
     DateTime endAt,
     DateTime endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByUpdatedAt({
+  UserFinanceQuery orderByUpdatedAt({
     bool descending = false,
     DateTime startAt,
     DateTime startAfter,
     DateTime endAt,
     DateTime endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByUserId({
+  UserFinanceQuery orderByUserId({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByProjectId({
+  UserFinanceQuery orderByProjectId({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 
-  FinanceQuery orderByAmount({
+  UserFinanceQuery orderByAmount({
     bool descending = false,
     double startAt,
     double startAfter,
     double endAt,
     double endBefore,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  UserFinanceQuery orderByStatus({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
+  });
+
+  UserFinanceQuery orderByDescription({
+    bool descending = false,
+    String? startAt,
+    String? startAfter,
+    String? endAt,
+    String? endBefore,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   });
 }
 
-class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
-    implements FinanceQuery {
-  _$FinanceQuery(
+class _$UserFinanceQuery
+    extends QueryReference<UserFinance, UserFinanceQuerySnapshot>
+    implements UserFinanceQuery {
+  _$UserFinanceQuery(
     this._collection, {
-    required Query<Finance> $referenceWithoutCursor,
+    required Query<UserFinance> $referenceWithoutCursor,
     $QueryCursor $queryCursor = const $QueryCursor(),
   }) : super(
           $referenceWithoutCursor: $referenceWithoutCursor,
@@ -4860,18 +5016,22 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   final CollectionReference<Object?> _collection;
 
   @override
-  Stream<FinanceQuerySnapshot> snapshots([SnapshotOptions? options]) {
-    return reference.snapshots().map(FinanceQuerySnapshot._fromQuerySnapshot);
+  Stream<UserFinanceQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference
+        .snapshots()
+        .map(UserFinanceQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
-  Future<FinanceQuerySnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(FinanceQuerySnapshot._fromQuerySnapshot);
+  Future<UserFinanceQuerySnapshot> get([GetOptions? options]) {
+    return reference
+        .get(options)
+        .then(UserFinanceQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
-  FinanceQuery limit(int limit) {
-    return _$FinanceQuery(
+  UserFinanceQuery limit(int limit) {
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
       $queryCursor: $queryCursor,
@@ -4879,8 +5039,8 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery limitToLast(int limit) {
-    return _$FinanceQuery(
+  UserFinanceQuery limitToLast(int limit) {
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
       $queryCursor: $queryCursor,
@@ -4888,7 +5048,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereFieldPath(
+  UserFinanceQuery whereFieldPath(
     Object fieldPath, {
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
@@ -4902,7 +5062,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<Object?>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         fieldPath,
@@ -4925,7 +5085,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereDocumentId({
+  UserFinanceQuery whereDocumentId({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -4936,7 +5096,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<String>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         FieldPath.documentId,
@@ -4957,7 +5117,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereObjectId({
+  UserFinanceQuery whereObjectId({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -4968,30 +5128,33 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<String>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['objectId']!,
+        _$UserFinanceFieldMap['objectId']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.objectId(isEqualTo as String)
+            ? _$UserFinancePerFieldToJson.objectId(isEqualTo as String)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.objectId(isNotEqualTo as String)
+            ? _$UserFinancePerFieldToJson.objectId(isNotEqualTo as String)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.objectId(isLessThan as String)
+            ? _$UserFinancePerFieldToJson.objectId(isLessThan as String)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.objectId(isLessThanOrEqualTo as String)
+            ? _$UserFinancePerFieldToJson
+                .objectId(isLessThanOrEqualTo as String)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.objectId(isGreaterThan as String)
+            ? _$UserFinancePerFieldToJson.objectId(isGreaterThan as String)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.objectId(isGreaterThanOrEqualTo as String)
+            ? _$UserFinancePerFieldToJson
+                .objectId(isGreaterThanOrEqualTo as String)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.objectId(e)),
-        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.objectId(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.objectId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.objectId(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5001,7 +5164,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereCreatedAt({
+  UserFinanceQuery whereCreatedAt({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -5012,32 +5175,33 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<DateTime>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['createdAt']!,
+        _$UserFinanceFieldMap['createdAt']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.createdAt(isEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson.createdAt(isEqualTo as DateTime)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.createdAt(isNotEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson.createdAt(isNotEqualTo as DateTime)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.createdAt(isLessThan as DateTime)
+            ? _$UserFinancePerFieldToJson.createdAt(isLessThan as DateTime)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.createdAt(isLessThanOrEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson
+                .createdAt(isLessThanOrEqualTo as DateTime)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.createdAt(isGreaterThan as DateTime)
+            ? _$UserFinancePerFieldToJson.createdAt(isGreaterThan as DateTime)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson
+            ? _$UserFinancePerFieldToJson
                 .createdAt(isGreaterThanOrEqualTo as DateTime)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.createdAt(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.createdAt(e)),
         whereNotIn:
-            whereNotIn?.map((e) => _$FinancePerFieldToJson.createdAt(e)),
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.createdAt(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5047,7 +5211,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereUpdatedAt({
+  UserFinanceQuery whereUpdatedAt({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -5058,32 +5222,33 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<DateTime>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['updatedAt']!,
+        _$UserFinanceFieldMap['updatedAt']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.updatedAt(isEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson.updatedAt(isEqualTo as DateTime)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.updatedAt(isNotEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson.updatedAt(isNotEqualTo as DateTime)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.updatedAt(isLessThan as DateTime)
+            ? _$UserFinancePerFieldToJson.updatedAt(isLessThan as DateTime)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.updatedAt(isLessThanOrEqualTo as DateTime)
+            ? _$UserFinancePerFieldToJson
+                .updatedAt(isLessThanOrEqualTo as DateTime)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.updatedAt(isGreaterThan as DateTime)
+            ? _$UserFinancePerFieldToJson.updatedAt(isGreaterThan as DateTime)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson
+            ? _$UserFinancePerFieldToJson
                 .updatedAt(isGreaterThanOrEqualTo as DateTime)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.updatedAt(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.updatedAt(e)),
         whereNotIn:
-            whereNotIn?.map((e) => _$FinancePerFieldToJson.updatedAt(e)),
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.updatedAt(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5093,7 +5258,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereUserId({
+  UserFinanceQuery whereUserId({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -5104,30 +5269,32 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<String>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['userId']!,
+        _$UserFinanceFieldMap['userId']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.userId(isEqualTo as String)
+            ? _$UserFinancePerFieldToJson.userId(isEqualTo as String)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.userId(isNotEqualTo as String)
+            ? _$UserFinancePerFieldToJson.userId(isNotEqualTo as String)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.userId(isLessThan as String)
+            ? _$UserFinancePerFieldToJson.userId(isLessThan as String)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.userId(isLessThanOrEqualTo as String)
+            ? _$UserFinancePerFieldToJson.userId(isLessThanOrEqualTo as String)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.userId(isGreaterThan as String)
+            ? _$UserFinancePerFieldToJson.userId(isGreaterThan as String)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.userId(isGreaterThanOrEqualTo as String)
+            ? _$UserFinancePerFieldToJson
+                .userId(isGreaterThanOrEqualTo as String)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.userId(e)),
-        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.userId(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.userId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.userId(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5137,7 +5304,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereProjectId({
+  UserFinanceQuery whereProjectId({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -5148,32 +5315,33 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<String>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['projectId']!,
+        _$UserFinanceFieldMap['projectId']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.projectId(isEqualTo as String)
+            ? _$UserFinancePerFieldToJson.projectId(isEqualTo as String)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.projectId(isNotEqualTo as String)
+            ? _$UserFinancePerFieldToJson.projectId(isNotEqualTo as String)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.projectId(isLessThan as String)
+            ? _$UserFinancePerFieldToJson.projectId(isLessThan as String)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.projectId(isLessThanOrEqualTo as String)
+            ? _$UserFinancePerFieldToJson
+                .projectId(isLessThanOrEqualTo as String)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.projectId(isGreaterThan as String)
+            ? _$UserFinancePerFieldToJson.projectId(isGreaterThan as String)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson
+            ? _$UserFinancePerFieldToJson
                 .projectId(isGreaterThanOrEqualTo as String)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.projectId(e)),
         whereNotIn:
-            whereNotIn?.map((e) => _$FinancePerFieldToJson.projectId(e)),
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.projectId(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5183,7 +5351,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery whereAmount({
+  UserFinanceQuery whereAmount({
     Object? isEqualTo = _sentinel,
     Object? isNotEqualTo = _sentinel,
     Object? isLessThan,
@@ -5194,30 +5362,32 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
     List<double>? whereNotIn,
     bool? isNull,
   }) {
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$FinanceFieldMap['amount']!,
+        _$UserFinanceFieldMap['amount']!,
         isEqualTo: isEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.amount(isEqualTo as double)
+            ? _$UserFinancePerFieldToJson.amount(isEqualTo as double)
             : null,
         isNotEqualTo: isNotEqualTo != _sentinel
-            ? _$FinancePerFieldToJson.amount(isNotEqualTo as double)
+            ? _$UserFinancePerFieldToJson.amount(isNotEqualTo as double)
             : null,
         isLessThan: isLessThan != null
-            ? _$FinancePerFieldToJson.amount(isLessThan as double)
+            ? _$UserFinancePerFieldToJson.amount(isLessThan as double)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.amount(isLessThanOrEqualTo as double)
+            ? _$UserFinancePerFieldToJson.amount(isLessThanOrEqualTo as double)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$FinancePerFieldToJson.amount(isGreaterThan as double)
+            ? _$UserFinancePerFieldToJson.amount(isGreaterThan as double)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$FinancePerFieldToJson.amount(isGreaterThanOrEqualTo as double)
+            ? _$UserFinancePerFieldToJson
+                .amount(isGreaterThanOrEqualTo as double)
             : null,
-        whereIn: whereIn?.map((e) => _$FinancePerFieldToJson.amount(e)),
-        whereNotIn: whereNotIn?.map((e) => _$FinancePerFieldToJson.amount(e)),
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.amount(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.amount(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -5227,17 +5397,111 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByFieldPath(
+  UserFinanceQuery whereStatus({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserFinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserFinanceFieldMap['status']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserFinancePerFieldToJson.status(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserFinancePerFieldToJson.status(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserFinancePerFieldToJson.status(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserFinancePerFieldToJson.status(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserFinancePerFieldToJson.status(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserFinancePerFieldToJson
+                .status(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$UserFinancePerFieldToJson.status(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.status(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserFinanceQuery whereDescription({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$UserFinanceQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserFinanceFieldMap['description']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$UserFinancePerFieldToJson.description(isEqualTo as String?)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$UserFinancePerFieldToJson.description(isNotEqualTo as String?)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserFinancePerFieldToJson.description(isLessThan as String?)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserFinancePerFieldToJson
+                .description(isLessThanOrEqualTo as String?)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserFinancePerFieldToJson.description(isGreaterThan as String?)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserFinancePerFieldToJson
+                .description(isGreaterThanOrEqualTo as String?)
+            : null,
+        whereIn:
+            whereIn?.map((e) => _$UserFinancePerFieldToJson.description(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserFinancePerFieldToJson.description(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  UserFinanceQuery orderByFieldPath(
     Object fieldPath, {
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query =
         $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
@@ -5293,7 +5557,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5301,16 +5565,16 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByDocumentId({
+  UserFinanceQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
         descending: descending);
@@ -5366,7 +5630,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5374,19 +5638,19 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByObjectId({
+  UserFinanceQuery orderByObjectId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor
-        .orderBy(_$FinanceFieldMap['objectId']!, descending: descending);
+        .orderBy(_$UserFinanceFieldMap['objectId']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5439,7 +5703,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5447,19 +5711,19 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByCreatedAt({
+  UserFinanceQuery orderByCreatedAt({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor
-        .orderBy(_$FinanceFieldMap['createdAt']!, descending: descending);
+        .orderBy(_$UserFinanceFieldMap['createdAt']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5512,7 +5776,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5520,19 +5784,19 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByUpdatedAt({
+  UserFinanceQuery orderByUpdatedAt({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor
-        .orderBy(_$FinanceFieldMap['updatedAt']!, descending: descending);
+        .orderBy(_$UserFinanceFieldMap['updatedAt']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5585,7 +5849,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5593,92 +5857,19 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByUserId({
+  UserFinanceQuery orderByUserId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['userId']!,
-        descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$FinanceQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
-  @override
-  FinanceQuery orderByProjectId({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor
-        .orderBy(_$FinanceFieldMap['projectId']!, descending: descending);
+        .orderBy(_$UserFinanceFieldMap['userId']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5731,7 +5922,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5739,19 +5930,19 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   }
 
   @override
-  FinanceQuery orderByAmount({
+  UserFinanceQuery orderByProjectId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    FinanceDocumentSnapshot? startAtDocument,
-    FinanceDocumentSnapshot? endAtDocument,
-    FinanceDocumentSnapshot? endBeforeDocument,
-    FinanceDocumentSnapshot? startAfterDocument,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$FinanceFieldMap['amount']!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserFinanceFieldMap['projectId']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5804,7 +5995,226 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
       );
     }
 
-    return _$FinanceQuery(
+    return _$UserFinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserFinanceQuery orderByAmount({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserFinanceFieldMap['amount']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserFinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserFinanceQuery orderByStatus({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserFinanceFieldMap['status']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserFinanceQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  UserFinanceQuery orderByDescription({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserFinanceDocumentSnapshot? startAtDocument,
+    UserFinanceDocumentSnapshot? endAtDocument,
+    UserFinanceDocumentSnapshot? endBeforeDocument,
+    UserFinanceDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserFinanceFieldMap['description']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserFinanceQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -5813,7 +6223,7 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
 
   @override
   bool operator ==(Object other) {
-    return other is _$FinanceQuery &&
+    return other is _$UserFinanceQuery &&
         other.runtimeType == runtimeType &&
         other.reference == reference;
   }
@@ -5822,56 +6232,57 @@ class _$FinanceQuery extends QueryReference<Finance, FinanceQuerySnapshot>
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class FinanceDocumentSnapshot extends FirestoreDocumentSnapshot<Finance> {
-  FinanceDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+class UserFinanceDocumentSnapshot
+    extends FirestoreDocumentSnapshot<UserFinance> {
+  UserFinanceDocumentSnapshot._(this.snapshot) : data = snapshot.data();
 
   @override
-  final DocumentSnapshot<Finance> snapshot;
+  final DocumentSnapshot<UserFinance> snapshot;
 
   @override
-  FinanceDocumentReference get reference {
-    return FinanceDocumentReference(
+  UserFinanceDocumentReference get reference {
+    return UserFinanceDocumentReference(
       snapshot.reference,
     );
   }
 
   @override
-  final Finance? data;
+  final UserFinance? data;
 }
 
-class FinanceQuerySnapshot
-    extends FirestoreQuerySnapshot<Finance, FinanceQueryDocumentSnapshot> {
-  FinanceQuerySnapshot._(
+class UserFinanceQuerySnapshot extends FirestoreQuerySnapshot<UserFinance,
+    UserFinanceQueryDocumentSnapshot> {
+  UserFinanceQuerySnapshot._(
     this.snapshot,
     this.docs,
     this.docChanges,
   );
 
-  factory FinanceQuerySnapshot._fromQuerySnapshot(
-    QuerySnapshot<Finance> snapshot,
+  factory UserFinanceQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<UserFinance> snapshot,
   ) {
-    final docs = snapshot.docs.map(FinanceQueryDocumentSnapshot._).toList();
+    final docs = snapshot.docs.map(UserFinanceQueryDocumentSnapshot._).toList();
 
     final docChanges = snapshot.docChanges.map((change) {
       return _decodeDocumentChange(
         change,
-        FinanceDocumentSnapshot._,
+        UserFinanceDocumentSnapshot._,
       );
     }).toList();
 
-    return FinanceQuerySnapshot._(
+    return UserFinanceQuerySnapshot._(
       snapshot,
       docs,
       docChanges,
     );
   }
 
-  static FirestoreDocumentChange<FinanceDocumentSnapshot>
+  static FirestoreDocumentChange<UserFinanceDocumentSnapshot>
       _decodeDocumentChange<T>(
     DocumentChange<T> docChange,
-    FinanceDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+    UserFinanceDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
   ) {
-    return FirestoreDocumentChange<FinanceDocumentSnapshot>(
+    return FirestoreDocumentChange<UserFinanceDocumentSnapshot>(
       type: docChange.type,
       oldIndex: docChange.oldIndex,
       newIndex: docChange.newIndex,
@@ -5879,29 +6290,29 @@ class FinanceQuerySnapshot
     );
   }
 
-  final QuerySnapshot<Finance> snapshot;
+  final QuerySnapshot<UserFinance> snapshot;
 
   @override
-  final List<FinanceQueryDocumentSnapshot> docs;
+  final List<UserFinanceQueryDocumentSnapshot> docs;
 
   @override
-  final List<FirestoreDocumentChange<FinanceDocumentSnapshot>> docChanges;
+  final List<FirestoreDocumentChange<UserFinanceDocumentSnapshot>> docChanges;
 }
 
-class FinanceQueryDocumentSnapshot
-    extends FirestoreQueryDocumentSnapshot<Finance>
-    implements FinanceDocumentSnapshot {
-  FinanceQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+class UserFinanceQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<UserFinance>
+    implements UserFinanceDocumentSnapshot {
+  UserFinanceQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
 
   @override
-  final QueryDocumentSnapshot<Finance> snapshot;
+  final QueryDocumentSnapshot<UserFinance> snapshot;
 
   @override
-  final Finance data;
+  final UserFinance data;
 
   @override
-  FinanceDocumentReference get reference {
-    return FinanceDocumentReference(snapshot.reference);
+  UserFinanceDocumentReference get reference {
+    return UserFinanceDocumentReference(snapshot.reference);
   }
 }
 
@@ -9094,7 +9505,8 @@ Map<String, dynamic> _$WorkStatusToJson(WorkStatus instance) =>
       'projectId': instance.projectId,
     };
 
-Finance _$FinanceFromJson(Map<String, dynamic> json) => Finance(
+UserFinance _$UserFinanceFromJson(Map<String, dynamic> json) => UserFinance(
+      json['description'] as String?,
       id: json['id'] as String,
       objectId: json['objectId'] as String,
       updatedAt: const FirestoreDateTimeConverter()
@@ -9104,9 +9516,10 @@ Finance _$FinanceFromJson(Map<String, dynamic> json) => Finance(
       userId: json['userId'] as String,
       projectId: json['projectId'] as String,
       amount: (json['amount'] as num).toDouble(),
+      status: json['status'] as String,
     );
 
-const _$FinanceFieldMap = <String, String>{
+const _$UserFinanceFieldMap = <String, String>{
   'id': 'id',
   'objectId': 'objectId',
   'createdAt': 'createdAt',
@@ -9114,10 +9527,12 @@ const _$FinanceFieldMap = <String, String>{
   'userId': 'userId',
   'projectId': 'projectId',
   'amount': 'amount',
+  'status': 'status',
+  'description': 'description',
 };
 
 // ignore: unused_element
-abstract class _$FinancePerFieldToJson {
+abstract class _$UserFinancePerFieldToJson {
   // ignore: unused_element
   static Object? id(String instance) => instance;
   // ignore: unused_element
@@ -9134,9 +9549,14 @@ abstract class _$FinancePerFieldToJson {
   static Object? projectId(String instance) => instance;
   // ignore: unused_element
   static Object? amount(double instance) => instance;
+  // ignore: unused_element
+  static Object? status(String instance) => instance;
+  // ignore: unused_element
+  static Object? description(String? instance) => instance;
 }
 
-Map<String, dynamic> _$FinanceToJson(Finance instance) => <String, dynamic>{
+Map<String, dynamic> _$UserFinanceToJson(UserFinance instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'objectId': instance.objectId,
       'createdAt':
@@ -9146,6 +9566,8 @@ Map<String, dynamic> _$FinanceToJson(Finance instance) => <String, dynamic>{
       'userId': instance.userId,
       'projectId': instance.projectId,
       'amount': instance.amount,
+      'status': instance.status,
+      'description': instance.description,
     };
 
 UserProject _$UserProjectFromJson(Map<String, dynamic> json) => UserProject(

@@ -4,6 +4,7 @@ import 'package:bespoke/core/widgets/bespoke_home_bottom_bar.dart';
 import 'package:bespoke/features/home/data/entities/project_model.dart';
 import 'package:bespoke/routing/route_config.gr.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/bespoke_home_app_bar.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: BeSpokeHomeAppBar(),
         body: FirestoreBuilder<ProjectQuerySnapshot>(
-          ref: projectRef.orderByCreatedAt(),
+          ref: projectRef.whereCreatorId(isEqualTo: FirebaseAuth.instance.currentUser!.uid),
           builder: (context, snapshot, child) {
             if (snapshot.hasError) {
               return Center(

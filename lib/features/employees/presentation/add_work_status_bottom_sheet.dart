@@ -1,4 +1,5 @@
 import 'package:bespoke/features/employee_details/presentation/add_finance_bottom_sheet.dart';
+import 'package:bespoke/features/employees/data/entities/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -137,13 +138,15 @@ class AddWorkStatusBottomSheet extends ConsumerWidget {
                     .doc(employeeId)
                     .collection('work_status');
 
-                await workStatusDoc.add({
+               var result =  await workStatusDoc.add({
                   'projectId': selectedProjectId,
                   'workDate': selectedDate,
                   'hoursWorked': selectedHours,
                   'createdAt': FieldValue.serverTimestamp(),
+                  'userId': employeeId,
+                  'updatedAt': FieldValue.serverTimestamp(),
                 });
-
+                await workStatusDoc.doc(result.id).update({'objectId':result.id});
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Work logged successfully!')),

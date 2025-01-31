@@ -1,4 +1,5 @@
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -44,7 +45,7 @@ class _SelectProjectBottomSheetState extends State<SelectProjectBottomSheet> {
 
               Expanded(
                 child: FirestoreBuilder<ProjectQuerySnapshot>(
-                  ref: projectRef.orderByCreatedAt(),
+                  ref: projectRef.whereCreatorId(isEqualTo: FirebaseAuth.instance.currentUser!.uid),
                   builder: (context, AsyncSnapshot<ProjectQuerySnapshot> snapshot, _) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
