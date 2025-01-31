@@ -129,6 +129,11 @@ abstract class UserDocumentReference
     reference,
   );
 
+  late final AssociatedUserCollectionReference associatedUsers =
+      _$AssociatedUserCollectionReference(
+    reference,
+  );
+
   @override
   Stream<UserDocumentSnapshot> snapshots();
 
@@ -277,6 +282,11 @@ class _$UserDocumentReference
 
   late final UserProjectCollectionReference userProjects =
       _$UserProjectCollectionReference(
+    reference,
+  );
+
+  late final AssociatedUserCollectionReference associatedUsers =
+      _$AssociatedUserCollectionReference(
     reference,
   );
 
@@ -7423,6 +7433,1547 @@ class UserProjectQueryDocumentSnapshot
   }
 }
 
+/// A collection reference object can be used for adding documents,
+/// getting document references, and querying for documents
+/// (using the methods inherited from Query).
+abstract class AssociatedUserCollectionReference
+    implements
+        AssociatedUserQuery,
+        FirestoreCollectionReference<AssociatedUser,
+            AssociatedUserQuerySnapshot> {
+  factory AssociatedUserCollectionReference(
+    DocumentReference<User> parent,
+  ) = _$AssociatedUserCollectionReference;
+
+  static AssociatedUser fromFirestore(
+    DocumentSnapshot<Map<String, Object?>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    return AssociatedUser.fromJson({'id': snapshot.id, ...?snapshot.data()});
+  }
+
+  static Map<String, Object?> toFirestore(
+    AssociatedUser value,
+    SetOptions? options,
+  ) {
+    return {...value.toJson()}..remove('id');
+  }
+
+  @override
+  CollectionReference<AssociatedUser> get reference;
+
+  /// A reference to the containing [UserDocumentReference] if this is a subcollection.
+  UserDocumentReference get parent;
+
+  @override
+  AssociatedUserDocumentReference doc([String? id]);
+
+  /// Add a new document to this collection with the specified data,
+  /// assigning it a document ID automatically.
+  Future<AssociatedUserDocumentReference> add(AssociatedUser value);
+}
+
+class _$AssociatedUserCollectionReference extends _$AssociatedUserQuery
+    implements AssociatedUserCollectionReference {
+  factory _$AssociatedUserCollectionReference(
+    DocumentReference<User> parent,
+  ) {
+    return _$AssociatedUserCollectionReference._(
+      UserDocumentReference(parent),
+      parent.collection('associated_users').withConverter(
+            fromFirestore: AssociatedUserCollectionReference.fromFirestore,
+            toFirestore: AssociatedUserCollectionReference.toFirestore,
+          ),
+    );
+  }
+
+  _$AssociatedUserCollectionReference._(
+    this.parent,
+    CollectionReference<AssociatedUser> reference,
+  ) : super(reference, $referenceWithoutCursor: reference);
+
+  @override
+  final UserDocumentReference parent;
+
+  String get path => reference.path;
+
+  @override
+  CollectionReference<AssociatedUser> get reference =>
+      super.reference as CollectionReference<AssociatedUser>;
+
+  @override
+  AssociatedUserDocumentReference doc([String? id]) {
+    assert(
+      id == null || id.split('/').length == 1,
+      'The document ID cannot be from a different collection',
+    );
+    return AssociatedUserDocumentReference(
+      reference.doc(id),
+    );
+  }
+
+  @override
+  Future<AssociatedUserDocumentReference> add(AssociatedUser value) {
+    return reference
+        .add(value)
+        .then((ref) => AssociatedUserDocumentReference(ref));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$AssociatedUserCollectionReference &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+abstract class AssociatedUserDocumentReference
+    extends FirestoreDocumentReference<AssociatedUser,
+        AssociatedUserDocumentSnapshot> {
+  factory AssociatedUserDocumentReference(
+          DocumentReference<AssociatedUser> reference) =
+      _$AssociatedUserDocumentReference;
+
+  DocumentReference<AssociatedUser> get reference;
+
+  /// A reference to the [AssociatedUserCollectionReference] containing this document.
+  AssociatedUserCollectionReference get parent {
+    return _$AssociatedUserCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<AssociatedUserDocumentSnapshot> snapshots();
+
+  @override
+  Future<AssociatedUserDocumentSnapshot> get([GetOptions? options]);
+
+  @override
+  Future<void> delete();
+
+  /// Sets data on the document, overwriting any existing data. If the document
+  /// does not yet exist, it will be created.
+  ///
+  /// If [SetOptions] are provided, the data can be merged into an existing
+  /// document instead of overwriting.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  Future<void> set(
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Writes to the document using the transaction API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void transactionSet(
+    Transaction transaction,
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Writes to the document using the batch API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void batchSet(
+    WriteBatch batch,
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue objectIdFieldValue,
+    FieldValue createdAtFieldValue,
+    FieldValue updatedAtFieldValue,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
+  Future<void> update({
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the batch API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void batchUpdate(
+    WriteBatch batch, {
+    String objectId,
+    FieldValue objectIdFieldValue,
+    DateTime createdAt,
+    FieldValue createdAtFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+    String userId,
+    FieldValue userIdFieldValue,
+  });
+}
+
+class _$AssociatedUserDocumentReference extends FirestoreDocumentReference<
+    AssociatedUser,
+    AssociatedUserDocumentSnapshot> implements AssociatedUserDocumentReference {
+  _$AssociatedUserDocumentReference(this.reference);
+
+  @override
+  final DocumentReference<AssociatedUser> reference;
+
+  /// A reference to the [AssociatedUserCollectionReference] containing this document.
+  AssociatedUserCollectionReference get parent {
+    return _$AssociatedUserCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<AssociatedUserDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(AssociatedUserDocumentSnapshot._);
+  }
+
+  @override
+  Future<AssociatedUserDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(AssociatedUserDocumentSnapshot._);
+  }
+
+  @override
+  Future<AssociatedUserDocumentSnapshot> transactionGet(
+      Transaction transaction) {
+    return transaction.get(reference).then(AssociatedUserDocumentSnapshot._);
+  }
+
+  Future<void> set(
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) async {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    final castedReference = reference.withConverter<Map<String, dynamic>>(
+      fromFirestore: (snapshot, options) => throw UnimplementedError(),
+      toFirestore: (value, options) => value,
+    );
+    return castedReference.set(json, options);
+  }
+
+  void transactionSet(
+    Transaction transaction,
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    transaction.set(reference, json, options);
+  }
+
+  void batchSet(
+    WriteBatch batch,
+    AssociatedUser model, {
+    SetOptions? options,
+    FieldValue? objectIdFieldValue,
+    FieldValue? createdAtFieldValue,
+    FieldValue? updatedAtFieldValue,
+    FieldValue? userIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    batch.set(reference, json, options);
+  }
+
+  Future<void> update({
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) async {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$AssociatedUserFieldMap['objectId']!:
+            _$AssociatedUserPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$AssociatedUserFieldMap['createdAt']!:
+            _$AssociatedUserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$AssociatedUserFieldMap['updatedAt']!:
+            _$AssociatedUserPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$AssociatedUserFieldMap['userId']!:
+            _$AssociatedUserPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    return reference.update(json);
+  }
+
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$AssociatedUserFieldMap['objectId']!:
+            _$AssociatedUserPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$AssociatedUserFieldMap['createdAt']!:
+            _$AssociatedUserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$AssociatedUserFieldMap['updatedAt']!:
+            _$AssociatedUserPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$AssociatedUserFieldMap['userId']!:
+            _$AssociatedUserPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    transaction.update(reference, json);
+  }
+
+  void batchUpdate(
+    WriteBatch batch, {
+    Object? objectId = _sentinel,
+    FieldValue? objectIdFieldValue,
+    Object? createdAt = _sentinel,
+    FieldValue? createdAtFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
+  }) {
+    assert(
+      objectId == _sentinel || objectIdFieldValue == null,
+      "Cannot specify both objectId and objectIdFieldValue",
+    );
+    assert(
+      createdAt == _sentinel || createdAtFieldValue == null,
+      "Cannot specify both createdAt and createdAtFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
+    final json = {
+      if (objectId != _sentinel)
+        _$AssociatedUserFieldMap['objectId']!:
+            _$AssociatedUserPerFieldToJson.objectId(objectId as String),
+      if (objectIdFieldValue != null)
+        _$AssociatedUserFieldMap['objectId']!: objectIdFieldValue,
+      if (createdAt != _sentinel)
+        _$AssociatedUserFieldMap['createdAt']!:
+            _$AssociatedUserPerFieldToJson.createdAt(createdAt as DateTime),
+      if (createdAtFieldValue != null)
+        _$AssociatedUserFieldMap['createdAt']!: createdAtFieldValue,
+      if (updatedAt != _sentinel)
+        _$AssociatedUserFieldMap['updatedAt']!:
+            _$AssociatedUserPerFieldToJson.updatedAt(updatedAt as DateTime),
+      if (updatedAtFieldValue != null)
+        _$AssociatedUserFieldMap['updatedAt']!: updatedAtFieldValue,
+      if (userId != _sentinel)
+        _$AssociatedUserFieldMap['userId']!:
+            _$AssociatedUserPerFieldToJson.userId(userId as String),
+      if (userIdFieldValue != null)
+        _$AssociatedUserFieldMap['userId']!: userIdFieldValue,
+    };
+
+    batch.update(reference, json);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AssociatedUserDocumentReference &&
+        other.runtimeType == runtimeType &&
+        other.parent == parent &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, parent, id);
+}
+
+abstract class AssociatedUserQuery
+    implements QueryReference<AssociatedUser, AssociatedUserQuerySnapshot> {
+  @override
+  AssociatedUserQuery limit(int limit);
+
+  @override
+  AssociatedUserQuery limitToLast(int limit);
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  AssociatedUserQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssociatedUserQuery whereDocumentId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssociatedUserQuery whereObjectId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssociatedUserQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssociatedUserQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssociatedUserQuery whereUserId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  AssociatedUserQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object startAt,
+    Object startAfter,
+    Object endAt,
+    Object endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+
+  AssociatedUserQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+
+  AssociatedUserQuery orderByObjectId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+
+  AssociatedUserQuery orderByCreatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+
+  AssociatedUserQuery orderByUpdatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+
+  AssociatedUserQuery orderByUserId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  });
+}
+
+class _$AssociatedUserQuery
+    extends QueryReference<AssociatedUser, AssociatedUserQuerySnapshot>
+    implements AssociatedUserQuery {
+  _$AssociatedUserQuery(
+    this._collection, {
+    required Query<AssociatedUser> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
+
+  final CollectionReference<Object?> _collection;
+
+  @override
+  Stream<AssociatedUserQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference
+        .snapshots()
+        .map(AssociatedUserQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  Future<AssociatedUserQuerySnapshot> get([GetOptions? options]) {
+    return reference
+        .get(options)
+        .then(AssociatedUserQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  AssociatedUserQuery limit(int limit) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery limitToLast(int limit) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        fieldPath,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereDocumentId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        FieldPath.documentId,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereObjectId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssociatedUserFieldMap['objectId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.objectId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.objectId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssociatedUserPerFieldToJson.objectId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .objectId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssociatedUserPerFieldToJson.objectId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .objectId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn:
+            whereIn?.map((e) => _$AssociatedUserPerFieldToJson.objectId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssociatedUserPerFieldToJson.objectId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereCreatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssociatedUserFieldMap['createdAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.createdAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.createdAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssociatedUserPerFieldToJson.createdAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .createdAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssociatedUserPerFieldToJson
+                .createdAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .createdAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn:
+            whereIn?.map((e) => _$AssociatedUserPerFieldToJson.createdAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssociatedUserPerFieldToJson.createdAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereUpdatedAt({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssociatedUserFieldMap['updatedAt']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.updatedAt(isEqualTo as DateTime)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.updatedAt(isNotEqualTo as DateTime)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssociatedUserPerFieldToJson.updatedAt(isLessThan as DateTime)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .updatedAt(isLessThanOrEqualTo as DateTime)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssociatedUserPerFieldToJson
+                .updatedAt(isGreaterThan as DateTime)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .updatedAt(isGreaterThanOrEqualTo as DateTime)
+            : null,
+        whereIn:
+            whereIn?.map((e) => _$AssociatedUserPerFieldToJson.updatedAt(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssociatedUserPerFieldToJson.updatedAt(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery whereUserId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssociatedUserFieldMap['userId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.userId(isEqualTo as String)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssociatedUserPerFieldToJson.userId(isNotEqualTo as String)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssociatedUserPerFieldToJson.userId(isLessThan as String)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .userId(isLessThanOrEqualTo as String)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssociatedUserPerFieldToJson.userId(isGreaterThan as String)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssociatedUserPerFieldToJson
+                .userId(isGreaterThanOrEqualTo as String)
+            : null,
+        whereIn: whereIn?.map((e) => _$AssociatedUserPerFieldToJson.userId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssociatedUserPerFieldToJson.userId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByDocumentId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByObjectId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AssociatedUserFieldMap['objectId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByCreatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(
+        _$AssociatedUserFieldMap['createdAt']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByUpdatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(
+        _$AssociatedUserFieldMap['updatedAt']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssociatedUserQuery orderByUserId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssociatedUserDocumentSnapshot? startAtDocument,
+    AssociatedUserDocumentSnapshot? endAtDocument,
+    AssociatedUserDocumentSnapshot? endBeforeDocument,
+    AssociatedUserDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AssociatedUserFieldMap['userId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssociatedUserQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$AssociatedUserQuery &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+class AssociatedUserDocumentSnapshot
+    extends FirestoreDocumentSnapshot<AssociatedUser> {
+  AssociatedUserDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<AssociatedUser> snapshot;
+
+  @override
+  AssociatedUserDocumentReference get reference {
+    return AssociatedUserDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final AssociatedUser? data;
+}
+
+class AssociatedUserQuerySnapshot extends FirestoreQuerySnapshot<AssociatedUser,
+    AssociatedUserQueryDocumentSnapshot> {
+  AssociatedUserQuerySnapshot._(
+    this.snapshot,
+    this.docs,
+    this.docChanges,
+  );
+
+  factory AssociatedUserQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<AssociatedUser> snapshot,
+  ) {
+    final docs =
+        snapshot.docs.map(AssociatedUserQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        AssociatedUserDocumentSnapshot._,
+      );
+    }).toList();
+
+    return AssociatedUserQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<AssociatedUserDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    AssociatedUserDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+  ) {
+    return FirestoreDocumentChange<AssociatedUserDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
+
+  final QuerySnapshot<AssociatedUser> snapshot;
+
+  @override
+  final List<AssociatedUserQueryDocumentSnapshot> docs;
+
+  @override
+  final List<FirestoreDocumentChange<AssociatedUserDocumentSnapshot>>
+      docChanges;
+}
+
+class AssociatedUserQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<AssociatedUser>
+    implements AssociatedUserDocumentSnapshot {
+  AssociatedUserQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final QueryDocumentSnapshot<AssociatedUser> snapshot;
+
+  @override
+  final AssociatedUser data;
+
+  @override
+  AssociatedUserDocumentReference get reference {
+    return AssociatedUserDocumentReference(snapshot.reference);
+  }
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -7632,6 +9183,52 @@ abstract class _$UserProjectPerFieldToJson {
 }
 
 Map<String, dynamic> _$UserProjectToJson(UserProject instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'objectId': instance.objectId,
+      'createdAt':
+          const FirestoreDateTimeConverter().toJson(instance.createdAt),
+      'updatedAt':
+          const FirestoreDateTimeConverter().toJson(instance.updatedAt),
+      'userId': instance.userId,
+    };
+
+AssociatedUser _$AssociatedUserFromJson(Map<String, dynamic> json) =>
+    AssociatedUser(
+      id: json['id'] as String,
+      objectId: json['objectId'] as String,
+      updatedAt: const FirestoreDateTimeConverter()
+          .fromJson(json['updatedAt'] as Timestamp),
+      createdAt: const FirestoreDateTimeConverter()
+          .fromJson(json['createdAt'] as Timestamp),
+      userId: json['userId'] as String,
+    );
+
+const _$AssociatedUserFieldMap = <String, String>{
+  'id': 'id',
+  'objectId': 'objectId',
+  'createdAt': 'createdAt',
+  'updatedAt': 'updatedAt',
+  'userId': 'userId',
+};
+
+// ignore: unused_element
+abstract class _$AssociatedUserPerFieldToJson {
+  // ignore: unused_element
+  static Object? id(String instance) => instance;
+  // ignore: unused_element
+  static Object? objectId(String instance) => instance;
+  // ignore: unused_element
+  static Object? createdAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? updatedAt(DateTime instance) =>
+      const FirestoreDateTimeConverter().toJson(instance);
+  // ignore: unused_element
+  static Object? userId(String instance) => instance;
+}
+
+Map<String, dynamic> _$AssociatedUserToJson(AssociatedUser instance) =>
     <String, dynamic>{
       'id': instance.id,
       'objectId': instance.objectId,

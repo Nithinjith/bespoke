@@ -115,9 +115,33 @@ class UserProject{
 
   Map<String, dynamic> toJson() => _$UserProjectToJson(this);
 }
+@firestoreSerializable
+class AssociatedUser{
+  AssociatedUser({
+    required this.id,
+    required this.objectId,
+    required this.updatedAt,
+    required this.createdAt,
+    required this.userId,
+  });
+
+  @Id()
+  final String id;
+  final String objectId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String userId;
+
+  factory AssociatedUser.fromJson(Map<String, dynamic> json) {
+    return _$AssociatedUserFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$AssociatedUserToJson(this);
+}
 
 @Collection<User>('users')
 @Collection<WorkStatus>('users/*/work_status')
 @Collection<Finance>('users/*/finance')
 @Collection<UserProject>('users/*/user_projects')
+@Collection<AssociatedUser>('users/*/associated_users')
 final userRef = UserCollectionReference();

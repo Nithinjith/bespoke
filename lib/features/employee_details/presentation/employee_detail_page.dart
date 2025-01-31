@@ -1,4 +1,6 @@
 import 'package:auto_route/annotations.dart';
+import 'package:bespoke/features/employees/data/entities/user_model.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -52,26 +54,35 @@ class _TabsPageState extends ConsumerState<EmployeeDetailPage>
       });
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Multi-Tab App'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.folder), text: 'Projects'),
-            Tab(icon: Icon(Icons.assignment), text: 'Work-Log'),
-            Tab(icon: Icon(Icons.attach_money), text: 'Finance'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          ProjectsTab(),
-          WorkLogTab(),
-          FinanceTab(),
-        ],
-      ),
+    return FirestoreBuilder(
+      ref: userRef.doc(widget.employeeId),
+      builder: (context, snapshot, child) {
+        if(snapshot.hasError){
+          return Text('Unable to load data');
+        }
+        final user = snapshot.data?.data;
+        return Scaffold(
+          appBar: AppBar(
+            title:  Text(user?.name??''),
+            bottom: TabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(icon: Icon(Icons.folder), text: 'Projects'),
+                Tab(icon: Icon(Icons.assignment), text: 'Work-Log'),
+                Tab(icon: Icon(Icons.attach_money), text: 'Finance'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: const [
+              ProjectsTab(),
+              WorkLogTab(),
+              FinanceTab(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

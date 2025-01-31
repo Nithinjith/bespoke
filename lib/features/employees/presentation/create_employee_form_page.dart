@@ -29,27 +29,44 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
       appBar: AppBar(
         title: Text(isUpdate ? 'Update User' : 'Create User'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.contacts),
-            tooltip: 'Choose Contact',
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).primaryColor, // Primary color
+              foregroundColor: Colors.white, // Text color
+            ),
             onPressed: () async {
               var permissionStatus = await FlutterContacts.requestPermission();
               if (permissionStatus) {
                 final contact = await FlutterContacts.openExternalPick();
                 if (contact != null) {
-                  // Handle selected contact
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Selected: ${contact.displayName}  ${contact.phones}')),
-                  );
-                  debugPrint('Selected: ${contact.displayName}  ${contact.phones}');
+                  // Extract relevant details from the contact
+                  String? contactName = contact.displayName;
+                  String? contactPhone = contact.phones.isNotEmpty
+                      ? contact.phones.first.number
+                      : '';
+                  String? contactEmail = contact.emails.isNotEmpty
+                      ? contact.emails.first.address
+                      : '';
+
+                  // Update the form fields dynamically
+                  setState(() {
+                    _formKey.currentState?.patchValue({
+                      'name': contactName,
+                      'phone': contactPhone,
+                      'email': contactEmail,
+                    });
+                  });
                 }
-              }else{
+              } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Don\'t have permission to access contact')),
+                  SnackBar(
+                      content:
+                          Text('Don\'t have permission to access contact')),
                 );
               }
             },
-          ),
+            child: const Text('Choose Contact'),
+          )
         ],
       ),
       body: Padding(
@@ -87,16 +104,21 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
                     obscureText: true,
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(6, errorText: 'Password must be at least 6 characters long'),
+                      FormBuilderValidators.minLength(6,
+                          errorText:
+                              'Password must be at least 6 characters long'),
                     ]),
                   ),
                   const SizedBox(height: 16),
                   FormBuilderTextField(
                     name: 'confirmPassword',
-                    decoration: const InputDecoration(labelText: 'Confirm Password'),
+                    decoration:
+                        const InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
                     validator: (value) {
-                      final password = _formKey.currentState?.fields['password']?.value ?? '';
+                      final password =
+                          _formKey.currentState?.fields['password']?.value ??
+                              '';
                       if (value == null || value.isEmpty) {
                         return 'Confirm Password is required';
                       }
@@ -154,7 +176,8 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
       });
     } else {
       // Create user
-      var resul = await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var resul =
+          await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: formData['email'],
         password: formData['password'],
       );
@@ -164,10 +187,20 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
         'phone': int.parse(formData['phone']),
         'createdAt': now,
         'updatedAt': now,
-        'objectId':resul.user!.uid
+        'objectId': resul.user!.uid
       };
       await _userRef.doc(resul.user!.uid).set(newUser);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(auth.FirebaseAuth.instance.currentUser!.uid)
+          .collection('associated_users')
+          .doc(resul.user!.uid)
+          .set({
+        "objectId": resul.user!.uid,
+        "createdAt": now,
+        "updatedAt": now,
+        "userId": auth.FirebaseAuth.instance.currentUser!.uid
+      });
     }
   }
 }
-
