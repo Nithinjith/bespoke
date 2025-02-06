@@ -12,19 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final associatedUsersProvider =
-FutureProvider.autoDispose((ref) async {
+final associatedUsersProvider = FutureProvider.autoDispose(
+  (ref) async {
     // Fetch user projects for the given userId
 
-    final List<String>? associatedUserIds =
-    await userRef.doc(FirebaseAuth.instance.currentUser!.uid).associatedUsers.get().then(
+    final List<String>? associatedUserIds = await userRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .associatedUsers
+        .get()
+        .then(
           (value) => value.docs
-          .map(
-            (e) => e.data.id,
-      )
-          .toList(),
-    );
-    if(associatedUserIds == null || associatedUserIds.isEmpty){
+              .map(
+                (e) => e.data.id,
+              )
+              .toList(),
+        );
+    if (associatedUserIds == null || associatedUserIds.isEmpty) {
       return [];
     }
     // Fetch projects where document ID is in the projectIds list
@@ -36,10 +39,6 @@ FutureProvider.autoDispose((ref) async {
   },
 );
 
-
-
-
-
 @RoutePage()
 class EmployeeListPage extends ConsumerWidget {
   const EmployeeListPage({super.key});
@@ -50,30 +49,43 @@ class EmployeeListPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Employees'),
       ),
-      body: ref.watch(associatedUsersProvider).when(data: (data) {
-        if(data.isNotEmpty){
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final user = data[index];
-              return EmployeeListItem(user: user,);
-            },
-          );
-        }else{
+      body: ref.watch(associatedUsersProvider).when(
+        data: (data) {
+          if (data.isNotEmpty) {
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                final user = data[index];
+                return EmployeeListItem(
+                  user: user,
+                );
+              },
+            );
+          } else {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                  child: Text(
+                'You don\'t have employees. Use the + button to add a new employee',
+                style: Theme.of(context).textTheme.labelMedium,
+              )),
+            );
+          }
+        },
+        error: (error, stackTrace) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text('You don\'t have employees. Use the + button to add a new employee' , style: Theme.of(context).textTheme.labelMedium,)),
+            child: Center(
+                child: Text(
+              'Unable to load data ${error.toString()}',
+              style: Theme.of(context).textTheme.labelMedium,
+            )),
           );
-        }
-      }, error: (error, stackTrace) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(child: Text('Unable to load data ${error.toString()}', style: Theme.of(context).textTheme.labelMedium,)),
-        );
-      }, loading: () {
-        return CircularProgressIndicator();
-      },),
-
+        },
+        loading: () {
+          return CircularProgressIndicator();
+        },
+      ),
 
       // FirestoreBuilder<UserQuerySnapshot>(
       //   ref: userRef,
@@ -124,5 +136,3 @@ void showEmployeeSelectionBottomSheet(BuildContext context, String employeeId) {
     ),
   );
 }
-
-

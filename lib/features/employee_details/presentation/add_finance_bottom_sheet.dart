@@ -54,7 +54,7 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
   DateTime? _selectedDate;
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  String? _selectedProject;
+  Project? _selectedProject;
   String? _selectedStatus;
 
   void _pickDate() async {
@@ -94,7 +94,7 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
         "updatedAt": FieldValue.serverTimestamp(),
         "createdAt": FieldValue.serverTimestamp(),
         "userId": widget.employeeId,
-        "projectId": _selectedProject,
+        "projectId": _selectedProject?.id,
         "amount": double.parse(_amountController.text),
         "status": _selectedStatus,
         "description": _descriptionController.text.trim(),
@@ -112,106 +112,108 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
         if (snapshot.hasError) {
           return Text('Unable to load Projects');
         }
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context)
-                .viewInsets
-                .bottom, // Handle keyboard overlap
-            left: 16,
-            right: 16,
-            top: 16,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Add Transaction',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              SizedBox(height: 16),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    // Date Picker
-                    ListTile(
-                      title: Text(_selectedDate == null
-                          ? 'Select Date'
-                          : DateFormat('yyyy-MM-dd').format(_selectedDate!)),
-                      trailing: Icon(Icons.calendar_today),
-                      onTap: _pickDate,
-                    ),
-
-                    SizedBox(height: 16),
-
-                    // Amount Input
-                    TextFormField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Amount',
-                        border: OutlineInputBorder(),
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context)
+                  .viewInsets
+                  .bottom, // Handle keyboard overlap
+              left: 16,
+              right: 16,
+              top: 16,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Add Transaction',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                SizedBox(height: 16),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      // Date Picker
+                      ListTile(
+                        title: Text(_selectedDate == null
+                            ? 'Select Date'
+                            : DateFormat('yyyy-MM-dd').format(_selectedDate!)),
+                        trailing: Icon(Icons.calendar_today),
+                        onTap: _pickDate,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty)
-                          return 'Enter an amount';
-                        if (double.tryParse(value) == null)
-                          return 'Enter a valid number';
-                        return null;
-                      },
-                    ),
-
-                    SizedBox(height: 16),
-
-                    // Project Dropdown
-                    buildDropdownButtonFormField(widget.employeeId),
-
-                    SizedBox(height: 16),
-
-                    // Status Dropdown
-                    DropdownButtonFormField<String>(
-                      value: _selectedStatus,
-                      decoration: InputDecoration(
-                        labelText: 'Transaction Type',
-                        border: OutlineInputBorder(),
+          
+                      SizedBox(height: 16),
+          
+                      // Amount Input
+                      TextFormField(
+                        controller: _amountController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty)
+                            return 'Enter an amount';
+                          if (double.tryParse(value) == null)
+                            return 'Enter a valid number';
+                          return null;
+                        },
                       ),
-                      items: ['Debit', 'Credit'].map((status) {
-                        return DropdownMenuItem(
-                          value: status,
-                          child: Text(status),
-                        );
-                      }).toList(),
-                      onChanged: (value) => setState(() => _selectedStatus = value),
-                      validator: (value) =>
-                      value == null ? 'Select a transaction type' : null,
-                    ),
-
-                    SizedBox(height: 16),
-
-                    // Description (Multi-line Text Input)
-                    TextFormField(
-                      controller: _descriptionController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                        labelText: 'Description (Optional)',
-                        border: OutlineInputBorder(),
+          
+                      SizedBox(height: 16),
+          
+                      // Project Dropdown
+                      buildDropdownButtonFormField(widget.employeeId),
+          
+                      SizedBox(height: 16),
+          
+                      // Status Dropdown
+                      DropdownButtonFormField<String>(
+                        value: _selectedStatus,
+                        decoration: InputDecoration(
+                          labelText: 'Transaction Type',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: ['Advance', 'Settlement'].map((status) {
+                          return DropdownMenuItem(
+                            value: status,
+                            child: Text(status),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(() => _selectedStatus = value),
+                        validator: (value) =>
+                        value == null ? 'Select a transaction type' : null,
                       ),
-                    ),
-
-                    SizedBox(height: 24),
-
-                    // Submit Button
-                    ElevatedButton(
-                      onPressed: _submit,
-                      style: ElevatedButton.styleFrom(
-                        minimumSize:
-                        Size(double.infinity, 50), // Full-width button
+          
+                      SizedBox(height: 16),
+          
+                      // Description (Multi-line Text Input)
+                      TextFormField(
+                        controller: _descriptionController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 3,
+                        decoration: InputDecoration(
+                          labelText: 'Description (Optional)',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
-                      child: Text('Submit'),
-                    ),
-                  ],
+          
+                      SizedBox(height: 24),
+          
+                      // Submit Button
+                      ElevatedButton(
+                        onPressed: _submit,
+                        style: ElevatedButton.styleFrom(
+                          minimumSize:
+                          Size(double.infinity, 50), // Full-width button
+                        ),
+                        child: Text('Submit'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -221,24 +223,20 @@ class _AddFinanceBottomSheetState extends ConsumerState<AddFinanceBottomSheet> {
   Widget buildDropdownButtonFormField(String employeeId) {
     return ref.watch(associatedProjectProvider(employeeId)).when(
       data: (data) {
-        var projectNameList = data!
-            .map(
-              (e) => e.name,
-        )
-            .toList();
+        var projectNameList = data;
         return DropdownButtonFormField<String>(
-          value: _selectedProject,
+          value: _selectedProject?.name,
           decoration: InputDecoration(
             labelText: 'Select Project',
             border: OutlineInputBorder(),
           ),
-          items: projectNameList.map((project) {
+          items: projectNameList?.map((project) {
             return DropdownMenuItem(
-              value: project,
-              child: Text(project),
+              value: project.name,
+              child: Text(project.name),
             );
           }).toList(),
-          onChanged: (value) => setState(() => _selectedProject = value),
+          onChanged: (value) => setState(() => _selectedProject = data?.firstWhere((element) => element.name == value,)),
           validator: (value) => value == null ? 'Select a project' : null,
         );
       },

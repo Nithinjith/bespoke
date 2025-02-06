@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bespoke/core/widgets/bespoke_home_bottom_bar.dart';
+import 'package:bespoke/core/widgets/no_data_lotie_animation.dart';
 import 'package:bespoke/features/home/data/entities/project_model.dart';
 import 'package:bespoke/routing/route_config.gr.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
@@ -36,6 +37,9 @@ class HomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               );
+            }
+            if(snapshot.data!.docs.isEmpty){
+              return NoDataWidget(message: 'No Project Available, Press + and add',);
             }
             ProjectQuerySnapshot querySnapshot = snapshot.requireData;
             return ListView.builder(

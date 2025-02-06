@@ -48,6 +48,7 @@ class EmployeeListItem extends StatelessWidget {
           name: user.name,
           radius: 28,
           fontsize: 18,
+
         ),
         const SizedBox(width: 16),
         Text(

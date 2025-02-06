@@ -67,8 +67,8 @@ class BespokeBottomBar extends StatelessWidget {
     return BottomNavigationBarItem(
       icon: Image.asset(
         iconPath,
-        width: 28,
-        height: 28,
+        width: 36,
+        height: 36,
       ),
       label: label,
     );

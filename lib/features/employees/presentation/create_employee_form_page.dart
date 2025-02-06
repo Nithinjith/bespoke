@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:bespoke/features/auth/domain/firebase_registration.dart';
 import 'package:bespoke/features/employees/data/entities/user_model.dart';
 import 'package:bespoke/features/employees/presentation/project_selection_bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -176,27 +177,29 @@ class _CreateEmployeeFormPageState extends State<CreateEmployeeFormPage> {
       });
     } else {
       // Create user
-      var resul =
-          await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: formData['email'],
-        password: formData['password'],
-      );
+      // var resul =
+      //     await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //   email: formData['email'],
+      //   password: formData['password'],
+      // );
+      var result = await AuthService().registerUser(formData['email'], formData['password']);
+      debugPrint('User registration status $result');
       final newUser = {
         'name': formData['name'],
         'email': formData['email'],
         'phone': int.parse(formData['phone']),
         'createdAt': now,
         'updatedAt': now,
-        'objectId': resul.user!.uid
+        'objectId': result['uid']
       };
-      await _userRef.doc(resul.user!.uid).set(newUser);
+      await _userRef.doc(result['uid']).set(newUser);
       await FirebaseFirestore.instance
           .collection('users')
           .doc(auth.FirebaseAuth.instance.currentUser!.uid)
           .collection('associated_users')
-          .doc(resul.user!.uid)
+          .doc(result['uid'])
           .set({
-        "objectId": resul.user!.uid,
+        "objectId": result['uid'],
         "createdAt": now,
         "updatedAt": now,
         "userId": auth.FirebaseAuth.instance.currentUser!.uid
